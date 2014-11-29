@@ -1,0 +1,77 @@
+﻿@using GridMvc.Html
+@using Payroll.Helpers
+@model IEnumerable<Payroll.Models.SalaryForView>
+
+@{
+    ViewBag.Title = "Salary List";
+    Layout = ViewHelper.DefaultLayout;
+    ViewBag.IsSalaryMenuActive = "active";
+}
+
+<a href='@Url.Action("Create", "Salary")'
+   class="btn btn-primary" role="button">
+    <span class="glyphicon glyphicon-plus-sign"></span>
+    Create New
+</a>
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add()
+        .RenderValueAs(model =>
+            @<a href='@Url.Action("Edit", "Salary", new {id = model.Salary.SALARY_ID})' class="btn btn-primary" role="button">
+                <span class="glyphicon glyphicon-file"></span>
+            </a>)
+        .Sanitized(false).Encoded(false).Titled("Edit").SetWidth(20);
+    columns.Add()
+        .RenderValueAs(model =>
+            @<a href='@Url.Action("Delete", "Salary", new {id = model.Salary.SALARY_ID})' class="btn btn-primary" role="button">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>)
+        .Sanitized(false).Encoded(false).Titled("Delete").SetWidth(20);
+    columns.Add(model => model.Salary.SALARY_ID).Titled("Salary Id").Sortable(true).SetWidth(60);
+    columns.Add(model => model.Salary.USERNAME).Titled("Username").Sortable(true).SetWidth(60);
+    columns.Add(model => model.Salary.BASIC_SALARY).Titled("Basic Salary").Sortable(true).SetWidth(120);
+}).WithPaging(50)
+
+
+@*
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SALARY_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_USER.USERPASS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BASIC_SALARY)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SALARY_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_USER.USERPASS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BASIC_SALARY)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
+*@

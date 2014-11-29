@@ -1,0 +1,40 @@
+﻿@using Payroll.Helpers
+@model Payroll.Models.RateForView
+
+@{
+    ViewBag.Title = "Delete Rate";
+    Layout = ViewHelper.DefaultLayout;
+    ViewBag.IsRateMenuActive = "active";
+}
+
+<a href='@Url.Action("Index", "Rate")'
+   class="btn btn-primary" role="button">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    Back to List
+</a>
+
+@using (Html.BeginForm("Delete", "Rate", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <dl>
+        <dt>Rate Id:</dt>
+        <dd>@Model.Rate.RATE_ID</dd>
+
+        <dt>Name:</dt>
+        <dd>@Model.Rate.RATE_NAME</dd>
+        
+        <dt>Type:</dt>
+        <dd>@Model.RateTypeDescList.First(type => type.Value == Model.Rate.RATE_TYPE).Text</dd>
+
+        <dt>Value:</dt>
+        <dd>@Model.Rate.RATE_VALUE</dd>
+    </dl>
+    
+    <div class="input-group" style="margin-top: 10px;">
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-remove"></span>
+            Delete
+        </button>
+    </div>
+}

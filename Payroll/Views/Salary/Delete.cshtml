@@ -1,0 +1,37 @@
+﻿@using Payroll.Helpers
+@model Payroll.Models.SalaryForView
+
+@{
+    ViewBag.Title = "Delete Salary";
+    Layout = ViewHelper.DefaultLayout;
+    ViewBag.IsSalaryMenuActive = "active";
+}
+
+<a href='@Url.Action("Index", "Salary")'
+   class="btn btn-primary" role="button">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    Back to List
+</a>
+
+@using (Html.BeginForm("Delete", "Salary", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <dl>
+        <dt>Salary Id:</dt>
+        <dd>@Model.Salary.SALARY_ID</dd>
+
+        <dt>User:</dt>
+        <dd>@Model.Salary.USERNAME</dd>
+
+        <dt>Basic Salary:</dt>
+        <dd>@Model.Salary.BASIC_SALARY</dd>
+    </dl>
+
+    <div class="input-group" style="margin-top: 10px;">
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-remove"></span>
+            Delete
+        </button>
+    </div>
+}

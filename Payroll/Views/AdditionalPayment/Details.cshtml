@@ -1,0 +1,50 @@
+﻿@model Payroll.Models.T_ADDITIONAL_PAYMENT
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>T_ADDITIONAL_PAYMENT</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ADDITIONAL_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ADDITIONAL_ID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PAYMENT_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PAYMENT_ID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.M_RATES.RATE_NAME)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.M_RATES.RATE_NAME)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NOTE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NOTE)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IS_APPROVED)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IS_APPROVED)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

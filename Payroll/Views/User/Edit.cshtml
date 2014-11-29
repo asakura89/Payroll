@@ -1,0 +1,47 @@
+﻿@using Payroll.Helpers
+@model Payroll.Models.UserForView
+
+@{
+    ViewBag.Title = "Edit User";
+    Layout = ViewHelper.DefaultLayout;
+    ViewBag.IsUserMenuActive = "active";
+}
+
+<a href='@Url.Action("Index", "User")'
+   class="btn btn-primary" role="button">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    Back to List
+</a>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="input-group">
+        @Html.LabelFor(model => model.User.USERNAME, "Username", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.User.USERNAME, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.User.USERNAME)
+    </div>
+    <div class="input-group">
+        @Html.LabelFor(model => model.User.USERPASS, "Password", new { @class = "control-label" })
+        @Html.PasswordFor(model => model.User.USERPASS, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.User.USERPASS)
+        <a href='@Url.Action("ChangePassword", "User")'>Change Password</a>
+    </div>
+    <div class="input-group">
+        @Html.LabelFor(model => model.User.USER_CATEGORY, "Category", new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.User.USER_CATEGORY, Model.UserCategoryDescList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.User.USER_CATEGORY)
+    </div>
+    <div class="input-group">
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+            Save
+        </button>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,40 @@
+﻿@model Payroll.Models.T_DAYOFF
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>T_DAYOFF</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DAYOFF_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DAYOFF_ID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.M_USER.USERPASS)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.M_USER.USERPASS)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DAYOFF_DATE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DAYOFF_DATE)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

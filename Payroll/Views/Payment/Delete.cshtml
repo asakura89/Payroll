@@ -1,0 +1,47 @@
+﻿@model Payroll.Models.T_PAYMENT
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>T_PAYMENT</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PAYMENT_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PAYMENT_ID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PAYMENT_MONTH)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PAYMENT_MONTH)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PAYMENT_YEAR)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PAYMENT_YEAR)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.M_USER.USERPASS)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.M_USER.USERPASS)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

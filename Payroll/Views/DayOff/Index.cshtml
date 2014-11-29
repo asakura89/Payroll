@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Payroll.Models.T_DAYOFF>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DAYOFF_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_USER.USERPASS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DAYOFF_DATE)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DAYOFF_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_USER.USERPASS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DAYOFF_DATE)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,60 @@
+﻿@model Payroll.Models.T_PAYMENT
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>T_PAYMENT</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PAYMENT_ID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PAYMENT_ID)
+            @Html.ValidationMessageFor(model => model.PAYMENT_ID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PAYMENT_MONTH)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PAYMENT_MONTH)
+            @Html.ValidationMessageFor(model => model.PAYMENT_MONTH)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PAYMENT_YEAR)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PAYMENT_YEAR)
+            @Html.ValidationMessageFor(model => model.PAYMENT_YEAR)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.USERNAME, "M_USER")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("USERNAME", String.Empty)
+            @Html.ValidationMessageFor(model => model.USERNAME)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

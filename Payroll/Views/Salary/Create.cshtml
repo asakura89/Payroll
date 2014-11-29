@@ -1,0 +1,41 @@
+﻿@using Payroll.Helpers
+@model Payroll.Models.SalaryForView
+
+@{
+    ViewBag.Title = "Create New Salary";
+    Layout = ViewHelper.DefaultLayout;
+    ViewBag.IsSalaryMenuActive = "active";
+}
+
+<a href='@Url.Action("Index", "Salary")'
+   class="btn btn-primary" role="button">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    Back to List
+</a>
+
+@using (Html.BeginForm("Create", "Salary", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="input-group">
+        @Html.LabelFor(model => model.Salary.USERNAME, "User", new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.Salary.USERNAME, Model.UserList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Salary.USERNAME)
+    </div>
+    <div class="input-group">
+        @Html.LabelFor(model => model.Salary.BASIC_SALARY, "Basic Salary", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Salary.BASIC_SALARY, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Salary.BASIC_SALARY)
+    </div>
+    <div class="input-group" style="margin-top: 10px;">
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+            Save
+        </button>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

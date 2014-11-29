@@ -1,0 +1,70 @@
+﻿@using GridMvc.Html
+@using Payroll.Helpers
+@model IEnumerable<Payroll.Models.T_PAYMENT>
+
+@{
+    ViewBag.Title = "Payment List";
+    Layout = ViewHelper.DefaultLayout;
+    ViewBag.IsPaymmentMenuActive = "active";
+}
+
+<a href='@Url.Action("Create", "Payment")'
+   class="btn btn-primary" role="button">
+    <span class="glyphicon glyphicon-plus-sign"></span>
+    Create New
+</a>
+
+@*@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(model => model.USERNAME)
+        .RenderValueAs(model => Html.ActionLink(model.USERNAME, "Edit", "User", new { id = model.USERNAME }, null))
+        .Sanitized(false).Encoded(false)
+        .Titled("Username").Sortable(true).SetWidth(120);
+    columns.Add(model => model.USER_CATEGORY).Titled("Category").Sortable(true).SetWidth(120);
+}).WithPaging(50)*@
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PAYMENT_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PAYMENT_MONTH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PAYMENT_YEAR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.M_USER.USERPASS)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PAYMENT_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PAYMENT_MONTH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PAYMENT_YEAR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.M_USER.USERPASS)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

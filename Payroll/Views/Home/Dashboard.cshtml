@@ -1,0 +1,14 @@
+﻿@using Payroll.Helpers
+@model Payroll.Models.M_USER
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = ViewHelper.DefaultLayout;
+    ViewBag.IsDashboardMenuActive = "active";
+}
+
+<div class="jumbotron">
+    <h1>Hello, @Model.USERNAME</h1>
+    <p>Welcome to Payroll Web Apps. Click menu to look around.</p>
+    <a href='@Url.Action("Logout", "Home")' class="btn btn-primary btn-lg" role="button">Logout</a>
+</div>

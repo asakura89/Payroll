@@ -1,0 +1,36 @@
+﻿@model Payroll.Models.T_DAYOFF
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>T_DAYOFF</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DAYOFF_ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DAYOFF_ID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.M_USER.USERPASS)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.M_USER.USERPASS)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DAYOFF_DATE)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DAYOFF_DATE)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
