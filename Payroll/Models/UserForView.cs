@@ -17,10 +17,10 @@ namespace Payroll.Models
             var item = new SelectListItem { Text = String.Empty, Value = String.Empty };
             UserCategoryDescList.Add(item);
 
-            item = new SelectListItem { Text = "Normal", Value = "2" };
+            item = new SelectListItem { Text = "Admin", Value = "1" };
             UserCategoryDescList.Add(item);
 
-            item = new SelectListItem { Text = "Admin", Value = "1" };
+            item = new SelectListItem { Text = "Manager", Value = "2" };
             UserCategoryDescList.Add(item);
         }
 
