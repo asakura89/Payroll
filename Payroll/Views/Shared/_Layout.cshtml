@@ -21,10 +21,21 @@
         </div>
 
         <div class="container" style="margin-top: 20px;">
+            <div id="info-message" class="alert-success">@if (TempData.ContainsKey("InfoMessage")) { @Html.Raw(TempData["InfoMessage"]); }</div>
+            <div id="error-message" class="alert-danger">@if (TempData.ContainsKey("ErrorMessage")) { @Html.Raw(TempData["ErrorMessage"]); }</div>
+            <br/>
             @RenderBody()
         </div>
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
+        
+        <script type="text/javascript" src="~/Scripts/Ayumi.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                PartialLink();
+                MultiSubmit();
+            });
+        </script>
     </body>
 </html>

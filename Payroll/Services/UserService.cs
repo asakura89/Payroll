@@ -43,12 +43,24 @@ namespace Payroll.Services
             db.SaveChanges();
         }
 
-        public void ChangePassword(M_USER user)
+        public void ChangePassword(String username, String oldPassword, String confirmPassword, String newPassword)
         {
             var securityService = new SecurityService();
 
-            M_USER existing = GetByUsername(user.USERNAME);
-            existing.USERPASS = securityService.HashString(user.USERPASS);
+            M_USER existing = GetByUsername(username);
+
+            if (oldPassword == String.Empty)
+                throw new InvalidOperationException("Old Password must not empty.");
+            if (confirmPassword == String.Empty)
+                throw new InvalidOperationException("Confirm Old Password must not empty.");
+            if (securityService.HashString(oldPassword) != securityService.HashString(confirmPassword))
+                throw new InvalidOperationException("Confirm Password is not same as Old Password.");
+            if (securityService.HashString(oldPassword) != existing.USERPASS)
+                throw new InvalidOperationException("Old Password is incorrect.");
+            if (securityService.HashString(oldPassword) == securityService.HashString(newPassword))
+                throw new InvalidOperationException("New Password must not same as before.");
+
+            existing.USERPASS = securityService.HashString(newPassword);
 
             db.Entry(existing).State = EntityState.Modified;
             db.SaveChanges();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using Payroll.Helpers;
@@ -103,16 +102,49 @@ namespace Payroll.Controllers
         }
 
         [HttpPost]
+        public ActionResult ChangePasswordView(String username)
+        {
+            if (helper.AuthorizedUser == null)
+                return Redirect(Url.Action("Login", "Home"));
+
+            M_USER user;
+            try
+            {
+                using (service = new UserService())
+                    user = service.GetByUsername(username);
+            }
+            catch (Exception ex)
+            {
+                return Json(new ViewMessageResult(0, ex.Message + "<br><br/>" + ex.StackTrace));
+            }
+
+            return Json(new ViewMessageResult(1, "Ok", helper.RenderPartialViewToString("_ChangePassword", new UserForView(user))));
+        }
+
+        [HttpPost]
         public ActionResult ChangePassword(FormCollection form)
         {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_USER user = ConvertFormDataToUser(form);
-            using (service = new UserService())
-                service.ChangePassword(user);
+            try
+            {
+                using (service = new UserService())
+                    service.ChangePassword(form["User.USERNAME"], form["OldPassword"], form["ConfirmOldPassword"], form["NewPassword"]);
+            }
+            catch (InvalidOperationException ioex)
+            {
+                TempData.Add("ErrorMessage", ioex.Message);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData.Add("ErrorMessage", ex.Message + "<br><br/>" + ex.StackTrace);
+                return RedirectToAction("Index");
+            }
 
-            return View("Index");
+            TempData.Add("InfoMessage", "Password changed succesfully.");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

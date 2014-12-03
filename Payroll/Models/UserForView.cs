@@ -7,11 +7,15 @@ namespace Payroll.Models
     public class UserForView
     {
         public M_USER User { get; set; }
+        public String OldPassword { get; set; }
+        public String ConfirmOldPassword { get; set; }
+        public String NewPassword { get; set; }
         public List<SelectListItem> UserCategoryDescList { get; private set; }
 
         public UserForView(M_USER user)
         {
             User = user;
+            OldPassword = ConfirmOldPassword = NewPassword = String.Empty;
             UserCategoryDescList = new List<SelectListItem>();
 
             var item = new SelectListItem { Text = String.Empty, Value = String.Empty };

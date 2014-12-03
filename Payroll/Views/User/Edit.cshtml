@@ -23,11 +23,11 @@
         @Html.TextBoxFor(model => model.User.USERNAME, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.User.USERNAME)
     </div>
-    <div class="input-group">
-        @Html.LabelFor(model => model.User.USERPASS, "Password", new { @class = "control-label" })
-        @Html.PasswordFor(model => model.User.USERPASS, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.User.USERPASS)
-        <a href='@Url.Action("ChangePassword", "User")'>Change Password</a>
+    <div id="change-link" class="input-group">
+        <a href='@Url.Action("ChangePasswordView", "User")' data-partial data-target="#change-form" data-json-params='{"username":"@Model.User.USERNAME"}'>Change Password</a>
+    </div>
+    <div id="change-form">
+        
     </div>
     <div class="input-group">
         @Html.LabelFor(model => model.User.USER_CATEGORY, "Category", new { @class = "control-label" })
