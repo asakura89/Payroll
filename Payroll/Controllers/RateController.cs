@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -24,7 +24,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            List<M_RATES> rateList;
+            List<m_Rate> rateList;
             using (service = new RateService())
                 rateList = service.GetAllRates();
 
@@ -47,7 +47,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_RATES rate = ConvertFormDataToRate(form);
+            m_Rate rate = ConvertFormDataToRate(form);
             if (ModelState.IsValid)
             {
                 using (service = new RateService())
@@ -59,13 +59,13 @@ namespace Payroll.Controllers
             return View(new RateForView(rate));
         }
 
-        private M_RATES ConvertFormDataToRate(FormCollection form)
+        private m_Rate ConvertFormDataToRate(FormCollection form)
         {
-            var rate = new M_RATES();
-            rate.RATE_ID = form["Rate.RATE_ID"] ?? String.Empty;
-            rate.RATE_NAME = form["Rate.RATE_NAME"];
-            rate.RATE_TYPE = form["Rate.RATE_TYPE"];
-            rate.RATE_VALUE = Convert.ToDecimal(form["Rate.RATE_VALUE"]);
+            var rate = new m_Rate();
+            rate.RateId = form["Rate.RateId"] ?? String.Empty;
+            rate.RateName = form["Rate.RateName"];
+            rate.RateType = form["Rate.RateType"];
+            rate.RateValue = Convert.ToDecimal(form["Rate.RateValue"]);
 
             return rate;
         }
@@ -76,7 +76,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_RATES rate;
+            m_Rate rate;
             using (service = new RateService())
                 rate = service.GetById(id);
 
@@ -90,7 +90,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_RATES rate = ConvertFormDataToRate(form);
+            m_Rate rate = ConvertFormDataToRate(form);
             if (ModelState.IsValid)
             {
                 using (service = new RateService())
@@ -108,7 +108,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_RATES rate;
+            m_Rate rate;
             using (service = new RateService())
                 rate = service.GetById(id);
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Payroll.Models.T_ADDITIONAL_PAYMENT>
+@model IEnumerable<Payroll.Models.d_AdditionalSalary>
 
 @{
     ViewBag.Title = "Index";
@@ -12,19 +12,19 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ADDITIONAL_ID)
+            @Html.DisplayNameFor(model => model.AdditionalSalaryId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PAYMENT_ID)
+            @Html.DisplayNameFor(model => model.RateId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.M_RATES.RATE_NAME)
+            @Html.DisplayNameFor(model => model.m_Rate.RateName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NOTE)
+            @Html.DisplayNameFor(model => model.m_User.Username)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IS_APPROVED)
+            @Html.DisplayNameFor(model => model.m_User.Username)
         </th>
         <th></th>
     </tr>
@@ -32,19 +32,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ADDITIONAL_ID)
+            @Html.DisplayFor(modelItem => item.AdditionalSalaryId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PAYMENT_ID)
+            @Html.DisplayFor(modelItem => item.RateId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.M_RATES.RATE_NAME)
+            @Html.DisplayFor(modelItem => item.m_Rate.RateName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NOTE)
+            @Html.DisplayFor(modelItem => item.m_User.Username)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IS_APPROVED)
+            @Html.DisplayFor(modelItem => item.m_User.Username)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

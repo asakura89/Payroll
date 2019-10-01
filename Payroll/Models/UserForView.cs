@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -6,13 +6,13 @@ namespace Payroll.Models
 {
     public class UserForView
     {
-        public M_USER User { get; set; }
+        public m_User User { get; set; }
         public String OldPassword { get; set; }
         public String ConfirmOldPassword { get; set; }
         public String NewPassword { get; set; }
         public List<SelectListItem> UserCategoryDescList { get; private set; }
 
-        public UserForView(M_USER user)
+        public UserForView(m_User user)
         {
             User = user;
             OldPassword = ConfirmOldPassword = NewPassword = String.Empty;
@@ -28,6 +28,6 @@ namespace Payroll.Models
             UserCategoryDescList.Add(item);
         }
 
-        public UserForView() : this(new M_USER()) { }
+        public UserForView() : this(new m_User()) { }
     }
 }

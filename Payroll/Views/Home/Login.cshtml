@@ -1,5 +1,5 @@
-﻿@using Payroll.Helpers
-@model Payroll.Models.M_USER
+@using Payroll.Helpers
+@model Payroll.Models.m_User
 @{
     ViewBag.Title = "Login";
     Layout = ViewHelper.LoginLayout;
@@ -10,12 +10,12 @@
 @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
 {
     <div class="input-group">
-        @Html.LabelFor(model => model.USERNAME, "Username", new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.USERNAME, new { @class = "form-control" })
+        @Html.LabelFor(model => model.Username, "Username", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
     </div>
     <div class="input-group">
-        @Html.LabelFor(model => model.USERPASS, "Password", new { @class = "control-label" })
-        @Html.PasswordFor(model => model.USERPASS, new { @class = "form-control" })
+        @Html.LabelFor(model => model.Password, "Password", new { @class = "control-label" })
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
     </div>
     <div class="input-group">
         <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Sign in</button>

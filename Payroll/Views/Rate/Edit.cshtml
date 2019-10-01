@@ -1,4 +1,4 @@
-﻿@using Payroll.Helpers
+@using Payroll.Helpers
 @model Payroll.Models.RateForView
 
 @{
@@ -19,23 +19,23 @@
     @Html.ValidationSummary(true)
 
     <div class="input-group">
-        @Html.LabelFor(model => model.Rate.RATE_ID, "Rate Id", new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Rate.RATE_ID, new { @class = "form-control", @readonly = "readonly" })
+        @Html.LabelFor(model => model.Rate.RateId, "Rate Id", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Rate.RateId, new { @class = "form-control", @readonly = "readonly" })
     </div>
     <div class="input-group">
-        @Html.LabelFor(model => model.Rate.RATE_NAME, "Name", new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Rate.RATE_NAME, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Rate.RATE_NAME)
+        @Html.LabelFor(model => model.Rate.RateName, "Name", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Rate.RateName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Rate.RateName)
     </div>
     <div class="input-group">
-        @Html.LabelFor(model => model.Rate.RATE_VALUE, "Value", new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Rate.RATE_VALUE, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Rate.RATE_VALUE)
+        @Html.LabelFor(model => model.Rate.RateValue, "Value", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Rate.RateValue, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Rate.RateValue)
     </div>
     <div class="input-group">
-        @Html.LabelFor(model => model.Rate.RATE_TYPE, "Type", new { @class = "control-label" })
-        @Html.DropDownListFor(model => model.Rate.RATE_TYPE, Model.RateTypeDescList, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Rate.RATE_TYPE)
+        @Html.LabelFor(model => model.Rate.RateType, "Type", new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.Rate.RateType, Model.RateTypeDescList, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Rate.RateType)
     </div>
     <div class="input-group" style="margin-top: 10px;">
         <button type="submit" class="btn btn-primary">

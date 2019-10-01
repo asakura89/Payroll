@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Payroll.Helpers;
 using Payroll.Models;
 using System.Web.Mvc;
@@ -34,14 +34,14 @@ namespace Payroll.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(M_USER user)
+        public ActionResult Login(m_User user)
         {
             LoginService loginSvc = new LoginService();
-            Boolean isUserValid = loginSvc.IsUserValid(user.USERNAME, user.USERPASS);
+            Boolean isUserValid = loginSvc.IsUserValid(user.Username, user.Password);
             if (isUserValid)
             {
                 UserService userSvc = new UserService();
-                helper.AuthorizedUser = userSvc.GetByUsername(user.USERNAME);
+                helper.AuthorizedUser = userSvc.GetByUsername(user.Username);
                 return Redirect(Url.Action("Dashboard", "Home"));
             }
 

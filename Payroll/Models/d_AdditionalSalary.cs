@@ -12,18 +12,13 @@ namespace Payroll.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class M_RATES
+    public partial class d_AdditionalSalary
     {
-        public M_RATES()
-        {
-            this.T_ADDITIONAL_PAYMENT = new HashSet<T_ADDITIONAL_PAYMENT>();
-        }
+        public string AdditionalSalaryId { get; set; }
+        public string Username { get; set; }
+        public string RateId { get; set; }
     
-        public string RATE_ID { get; set; }
-        public string RATE_NAME { get; set; }
-        public Nullable<decimal> RATE_VALUE { get; set; }
-        public string RATE_TYPE { get; set; }
-    
-        public virtual ICollection<T_ADDITIONAL_PAYMENT> T_ADDITIONAL_PAYMENT { get; set; }
+        public virtual m_User m_User { get; set; }
+        public virtual m_Rate m_Rate { get; set; }
     }
 }

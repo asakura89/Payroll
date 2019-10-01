@@ -1,268 +1,341 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PayrollModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityType Name="M_EMP_SALARY">
+      <Schema Namespace="PayrollModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="d_AdditionalSalary">
           <Key>
-            <PropertyRef Name="SALARY_ID" />
+            <PropertyRef Name="AdditionalSalaryId" />
           </Key>
-          <Property Name="SALARY_ID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="USERNAME" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="BASIC_SALARY" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="AdditionalSalaryId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RateId" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="M_RATES">
+        <EntityType Name="d_DayOff">
           <Key>
-            <PropertyRef Name="RATE_ID" />
+            <PropertyRef Name="DayOffId" />
           </Key>
-          <Property Name="RATE_ID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="RATE_NAME" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="RATE_VALUE" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="RATE_TYPE" Type="char" MaxLength="1" />
+          <Property Name="DayOffId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DayOffDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="M_USER">
+        <EntityType Name="d_Payment">
           <Key>
-            <PropertyRef Name="USERNAME" />
+            <PropertyRef Name="PaymentId" />
           </Key>
-          <Property Name="USERNAME" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="USERPASS" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="USER_CATEGORY" Type="char" MaxLength="1" />
+          <Property Name="PaymentId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SalaryId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentMonth" Type="int" Nullable="false" />
+          <Property Name="PaymentYear" Type="int" Nullable="false" />
+          <Property Name="Approved" Type="bit" Nullable="false" />
+          <Property Name="Note" Type="varchar(max)" />
         </EntityType>
-        <EntityType Name="T_ADDITIONAL_PAYMENT">
+        <EntityType Name="d_Salary">
           <Key>
-            <PropertyRef Name="ADDITIONAL_ID" />
+            <PropertyRef Name="SalaryId" />
           </Key>
-          <Property Name="ADDITIONAL_ID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PAYMENT_ID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="RATE_ID" Type="varchar" MaxLength="50" />
-          <Property Name="NOTE" Type="varchar(max)" />
-          <Property Name="IS_APPROVED" Type="bit" />
+          <Property Name="SalaryId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BasicSalary" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
-        <EntityType Name="T_DAYOFF">
+        <EntityType Name="m_Rate">
           <Key>
-            <PropertyRef Name="DAYOFF_ID" />
+            <PropertyRef Name="RateId" />
           </Key>
-          <Property Name="DAYOFF_ID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="USERNAME" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DAYOFF_DATE" Type="datetime" Nullable="false" />
+          <Property Name="RateId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RateName" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="RateValue" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RateType" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
-        <EntityType Name="T_PAYMENT">
+        <EntityType Name="m_User">
           <Key>
-            <PropertyRef Name="PAYMENT_ID" />
+            <PropertyRef Name="Username" />
           </Key>
-          <Property Name="PAYMENT_ID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PAYMENT_MONTH" Type="int" Nullable="false" />
-          <Property Name="PAYMENT_YEAR" Type="int" Nullable="false" />
-          <Property Name="USERNAME" Type="varchar" MaxLength="50" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Category" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
-        <Association Name="FK_ADDITIONAL_RATES">
-          <End Role="M_RATES" Type="Self.M_RATES" Multiplicity="0..1" />
-          <End Role="T_ADDITIONAL_PAYMENT" Type="Self.T_ADDITIONAL_PAYMENT" Multiplicity="*" />
+        <Association Name="fk_d_empadditionalsalary">
+          <End Role="m_User" Type="Self.m_User" Multiplicity="1" />
+          <End Role="d_AdditionalSalary" Type="Self.d_AdditionalSalary" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="M_RATES">
-              <PropertyRef Name="RATE_ID" />
+            <Principal Role="m_User">
+              <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="T_ADDITIONAL_PAYMENT">
-              <PropertyRef Name="RATE_ID" />
+            <Dependent Role="d_AdditionalSalary">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DAYOFF_USER">
-          <End Role="M_USER" Type="Self.M_USER" Multiplicity="1" />
-          <End Role="T_DAYOFF" Type="Self.T_DAYOFF" Multiplicity="*" />
+        <Association Name="fk_d_empdayoff">
+          <End Role="m_User" Type="Self.m_User" Multiplicity="1" />
+          <End Role="d_DayOff" Type="Self.d_DayOff" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="M_USER">
-              <PropertyRef Name="USERNAME" />
+            <Principal Role="m_User">
+              <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="T_DAYOFF">
-              <PropertyRef Name="USERNAME" />
+            <Dependent Role="d_DayOff">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PAYMENT_USER">
-          <End Role="M_USER" Type="Self.M_USER" Multiplicity="0..1" />
-          <End Role="T_PAYMENT" Type="Self.T_PAYMENT" Multiplicity="*" />
+        <Association Name="fk_d_emppayment">
+          <End Role="m_User" Type="Self.m_User" Multiplicity="1" />
+          <End Role="d_Payment" Type="Self.d_Payment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="M_USER">
-              <PropertyRef Name="USERNAME" />
+            <Principal Role="m_User">
+              <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="T_PAYMENT">
-              <PropertyRef Name="USERNAME" />
+            <Dependent Role="d_Payment">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SALARY_USER">
-          <End Role="M_USER" Type="Self.M_USER" Multiplicity="1" />
-          <End Role="M_EMP_SALARY" Type="Self.M_EMP_SALARY" Multiplicity="*" />
+        <Association Name="fk_d_empsalary">
+          <End Role="m_User" Type="Self.m_User" Multiplicity="1" />
+          <End Role="d_Salary" Type="Self.d_Salary" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="M_USER">
-              <PropertyRef Name="USERNAME" />
+            <Principal Role="m_User">
+              <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="M_EMP_SALARY">
-              <PropertyRef Name="USERNAME" />
+            <Dependent Role="d_Salary">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_d_rateadditionalsalary">
+          <End Role="m_Rate" Type="Self.m_Rate" Multiplicity="1" />
+          <End Role="d_AdditionalSalary" Type="Self.d_AdditionalSalary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_Rate">
+              <PropertyRef Name="RateId" />
+            </Principal>
+            <Dependent Role="d_AdditionalSalary">
+              <PropertyRef Name="RateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_d_salarypayment">
+          <End Role="d_Salary" Type="Self.d_Salary" Multiplicity="1" />
+          <End Role="d_Payment" Type="Self.d_Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="d_Salary">
+              <PropertyRef Name="SalaryId" />
+            </Principal>
+            <Dependent Role="d_Payment">
+              <PropertyRef Name="SalaryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PayrollModelStoreContainer">
-          <EntitySet Name="M_EMP_SALARY" EntityType="Self.M_EMP_SALARY" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="M_RATES" EntityType="Self.M_RATES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="M_USER" EntityType="Self.M_USER" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T_ADDITIONAL_PAYMENT" EntityType="Self.T_ADDITIONAL_PAYMENT" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T_DAYOFF" EntityType="Self.T_DAYOFF" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T_PAYMENT" EntityType="Self.T_PAYMENT" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ADDITIONAL_RATES" Association="Self.FK_ADDITIONAL_RATES">
-            <End Role="M_RATES" EntitySet="M_RATES" />
-            <End Role="T_ADDITIONAL_PAYMENT" EntitySet="T_ADDITIONAL_PAYMENT" />
+          <EntitySet Name="d_AdditionalSalary" EntityType="Self.d_AdditionalSalary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="d_DayOff" EntityType="Self.d_DayOff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="d_Payment" EntityType="Self.d_Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="d_Salary" EntityType="Self.d_Salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_Rate" EntityType="Self.m_Rate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_User" EntityType="Self.m_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_d_empadditionalsalary" Association="Self.fk_d_empadditionalsalary">
+            <End Role="m_User" EntitySet="m_User" />
+            <End Role="d_AdditionalSalary" EntitySet="d_AdditionalSalary" />
           </AssociationSet>
-          <AssociationSet Name="FK_DAYOFF_USER" Association="Self.FK_DAYOFF_USER">
-            <End Role="M_USER" EntitySet="M_USER" />
-            <End Role="T_DAYOFF" EntitySet="T_DAYOFF" />
+          <AssociationSet Name="fk_d_empdayoff" Association="Self.fk_d_empdayoff">
+            <End Role="m_User" EntitySet="m_User" />
+            <End Role="d_DayOff" EntitySet="d_DayOff" />
           </AssociationSet>
-          <AssociationSet Name="FK_PAYMENT_USER" Association="Self.FK_PAYMENT_USER">
-            <End Role="M_USER" EntitySet="M_USER" />
-            <End Role="T_PAYMENT" EntitySet="T_PAYMENT" />
+          <AssociationSet Name="fk_d_emppayment" Association="Self.fk_d_emppayment">
+            <End Role="m_User" EntitySet="m_User" />
+            <End Role="d_Payment" EntitySet="d_Payment" />
           </AssociationSet>
-          <AssociationSet Name="FK_SALARY_USER" Association="Self.FK_SALARY_USER">
-            <End Role="M_USER" EntitySet="M_USER" />
-            <End Role="M_EMP_SALARY" EntitySet="M_EMP_SALARY" />
+          <AssociationSet Name="fk_d_empsalary" Association="Self.fk_d_empsalary">
+            <End Role="m_User" EntitySet="m_User" />
+            <End Role="d_Salary" EntitySet="d_Salary" />
+          </AssociationSet>
+          <AssociationSet Name="fk_d_rateadditionalsalary" Association="Self.fk_d_rateadditionalsalary">
+            <End Role="m_Rate" EntitySet="m_Rate" />
+            <End Role="d_AdditionalSalary" EntitySet="d_AdditionalSalary" />
+          </AssociationSet>
+          <AssociationSet Name="fk_d_salarypayment" Association="Self.fk_d_salarypayment">
+            <End Role="d_Salary" EntitySet="d_Salary" />
+            <End Role="d_Payment" EntitySet="d_Payment" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PayrollModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityType Name="M_EMP_SALARY">
+      <Schema Namespace="PayrollModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="d_AdditionalSalary">
           <Key>
-            <PropertyRef Name="SALARY_ID" />
+            <PropertyRef Name="AdditionalSalaryId" />
           </Key>
-          <Property Name="SALARY_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BASIC_SALARY" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="M_USER" Relationship="Self.FK_SALARY_USER" FromRole="M_EMP_SALARY" ToRole="M_USER" />
+          <Property Name="AdditionalSalaryId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RateId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="m_User" Relationship="Self.fk_d_empadditionalsalary" FromRole="d_AdditionalSalary" ToRole="m_User" />
+          <NavigationProperty Name="m_Rate" Relationship="Self.fk_d_rateadditionalsalary" FromRole="d_AdditionalSalary" ToRole="m_Rate" />
         </EntityType>
-        <EntityType Name="M_RATES">
+        <EntityType Name="d_DayOff">
           <Key>
-            <PropertyRef Name="RATE_ID" />
+            <PropertyRef Name="DayOffId" />
           </Key>
-          <Property Name="RATE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RATE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RATE_VALUE" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="T_ADDITIONAL_PAYMENT" Relationship="Self.FK_ADDITIONAL_RATES" FromRole="M_RATES" ToRole="T_ADDITIONAL_PAYMENT" />
-          <Property Name="RATE_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DayOffId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DayOffDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="m_User" Relationship="Self.fk_d_empdayoff" FromRole="d_DayOff" ToRole="m_User" />
         </EntityType>
-        <EntityType Name="M_USER">
+        <EntityType Name="d_Payment">
           <Key>
-            <PropertyRef Name="USERNAME" />
+            <PropertyRef Name="PaymentId" />
           </Key>
-          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="USERPASS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="USER_CATEGORY" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="M_EMP_SALARY" Relationship="Self.FK_SALARY_USER" FromRole="M_USER" ToRole="M_EMP_SALARY" />
-          <NavigationProperty Name="T_DAYOFF" Relationship="Self.FK_DAYOFF_USER" FromRole="M_USER" ToRole="T_DAYOFF" />
-          <NavigationProperty Name="T_PAYMENT" Relationship="Self.FK_PAYMENT_USER" FromRole="M_USER" ToRole="T_PAYMENT" />
+          <Property Name="PaymentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalaryId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaymentMonth" Type="Int32" Nullable="false" />
+          <Property Name="PaymentYear" Type="Int32" Nullable="false" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="m_User" Relationship="Self.fk_d_emppayment" FromRole="d_Payment" ToRole="m_User" />
+          <NavigationProperty Name="d_Salary" Relationship="Self.fk_d_salarypayment" FromRole="d_Payment" ToRole="d_Salary" />
         </EntityType>
-        <EntityType Name="T_ADDITIONAL_PAYMENT">
+        <EntityType Name="d_Salary">
           <Key>
-            <PropertyRef Name="ADDITIONAL_ID" />
+            <PropertyRef Name="SalaryId" />
           </Key>
-          <Property Name="ADDITIONAL_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PAYMENT_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RATE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NOTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IS_APPROVED" Type="Boolean" />
-          <NavigationProperty Name="M_RATES" Relationship="Self.FK_ADDITIONAL_RATES" FromRole="T_ADDITIONAL_PAYMENT" ToRole="M_RATES" />
+          <Property Name="SalaryId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BasicSalary" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="d_Payment" Relationship="Self.fk_d_salarypayment" FromRole="d_Salary" ToRole="d_Payment" />
+          <NavigationProperty Name="m_User" Relationship="Self.fk_d_empsalary" FromRole="d_Salary" ToRole="m_User" />
         </EntityType>
-        <EntityType Name="T_DAYOFF">
+        <EntityType Name="m_Rate">
           <Key>
-            <PropertyRef Name="DAYOFF_ID" />
+            <PropertyRef Name="RateId" />
           </Key>
-          <Property Name="DAYOFF_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DAYOFF_DATE" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="M_USER" Relationship="Self.FK_DAYOFF_USER" FromRole="T_DAYOFF" ToRole="M_USER" />
+          <Property Name="RateId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RateName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RateValue" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RateType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="d_AdditionalSalary" Relationship="Self.fk_d_rateadditionalsalary" FromRole="m_Rate" ToRole="d_AdditionalSalary" />
         </EntityType>
-        <EntityType Name="T_PAYMENT">
+        <EntityType Name="m_User">
           <Key>
-            <PropertyRef Name="PAYMENT_ID" />
+            <PropertyRef Name="Username" />
           </Key>
-          <Property Name="PAYMENT_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PAYMENT_MONTH" Type="Int32" Nullable="false" />
-          <Property Name="PAYMENT_YEAR" Type="Int32" Nullable="false" />
-          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="M_USER" Relationship="Self.FK_PAYMENT_USER" FromRole="T_PAYMENT" ToRole="M_USER" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="d_AdditionalSalary" Relationship="Self.fk_d_empadditionalsalary" FromRole="m_User" ToRole="d_AdditionalSalary" />
+          <NavigationProperty Name="d_DayOff" Relationship="Self.fk_d_empdayoff" FromRole="m_User" ToRole="d_DayOff" />
+          <NavigationProperty Name="d_Payment" Relationship="Self.fk_d_emppayment" FromRole="m_User" ToRole="d_Payment" />
+          <NavigationProperty Name="d_Salary" Relationship="Self.fk_d_empsalary" FromRole="m_User" ToRole="d_Salary" />
         </EntityType>
-        <Association Name="FK_SALARY_USER">
-          <End Role="M_USER" Type="Self.M_USER" Multiplicity="1" />
-          <End Role="M_EMP_SALARY" Type="Self.M_EMP_SALARY" Multiplicity="*" />
+        <Association Name="fk_d_empadditionalsalary">
+          <End Role="m_User" Type="Self.m_User" Multiplicity="1" />
+          <End Role="d_AdditionalSalary" Type="Self.d_AdditionalSalary" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="M_USER">
-              <PropertyRef Name="USERNAME" />
+            <Principal Role="m_User">
+              <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="M_EMP_SALARY">
-              <PropertyRef Name="USERNAME" />
+            <Dependent Role="d_AdditionalSalary">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ADDITIONAL_RATES">
-          <End Role="M_RATES" Type="Self.M_RATES" Multiplicity="0..1" />
-          <End Role="T_ADDITIONAL_PAYMENT" Type="Self.T_ADDITIONAL_PAYMENT" Multiplicity="*" />
+        <Association Name="fk_d_rateadditionalsalary">
+          <End Role="m_Rate" Type="Self.m_Rate" Multiplicity="1" />
+          <End Role="d_AdditionalSalary" Type="Self.d_AdditionalSalary" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="M_RATES">
-              <PropertyRef Name="RATE_ID" />
+            <Principal Role="m_Rate">
+              <PropertyRef Name="RateId" />
             </Principal>
-            <Dependent Role="T_ADDITIONAL_PAYMENT">
-              <PropertyRef Name="RATE_ID" />
+            <Dependent Role="d_AdditionalSalary">
+              <PropertyRef Name="RateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DAYOFF_USER">
-          <End Role="M_USER" Type="Self.M_USER" Multiplicity="1" />
-          <End Role="T_DAYOFF" Type="Self.T_DAYOFF" Multiplicity="*" />
+        <Association Name="fk_d_empdayoff">
+          <End Role="m_User" Type="Self.m_User" Multiplicity="1" />
+          <End Role="d_DayOff" Type="Self.d_DayOff" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="M_USER">
-              <PropertyRef Name="USERNAME" />
+            <Principal Role="m_User">
+              <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="T_DAYOFF">
-              <PropertyRef Name="USERNAME" />
+            <Dependent Role="d_DayOff">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PAYMENT_USER">
-          <End Role="M_USER" Type="Self.M_USER" Multiplicity="0..1" />
-          <End Role="T_PAYMENT" Type="Self.T_PAYMENT" Multiplicity="*" />
+        <Association Name="fk_d_emppayment">
+          <End Role="m_User" Type="Self.m_User" Multiplicity="1" />
+          <End Role="d_Payment" Type="Self.d_Payment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="M_USER">
-              <PropertyRef Name="USERNAME" />
+            <Principal Role="m_User">
+              <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="T_PAYMENT">
-              <PropertyRef Name="USERNAME" />
+            <Dependent Role="d_Payment">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_d_salarypayment">
+          <End Role="d_Salary" Type="Self.d_Salary" Multiplicity="1" />
+          <End Role="d_Payment" Type="Self.d_Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="d_Salary">
+              <PropertyRef Name="SalaryId" />
+            </Principal>
+            <Dependent Role="d_Payment">
+              <PropertyRef Name="SalaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_d_empsalary">
+          <End Role="m_User" Type="Self.m_User" Multiplicity="1" />
+          <End Role="d_Salary" Type="Self.d_Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_User">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="d_Salary">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PayrollEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="M_EMP_SALARY" EntityType="Self.M_EMP_SALARY" />
-          <EntitySet Name="M_RATES" EntityType="Self.M_RATES" />
-          <EntitySet Name="M_USER" EntityType="Self.M_USER" />
-          <EntitySet Name="T_ADDITIONAL_PAYMENT" EntityType="Self.T_ADDITIONAL_PAYMENT" />
-          <EntitySet Name="T_DAYOFF" EntityType="Self.T_DAYOFF" />
-          <EntitySet Name="T_PAYMENT" EntityType="Self.T_PAYMENT" />
-          <AssociationSet Name="FK_SALARY_USER" Association="Self.FK_SALARY_USER">
-            <End Role="M_USER" EntitySet="M_USER" />
-            <End Role="M_EMP_SALARY" EntitySet="M_EMP_SALARY" />
+          <EntitySet Name="d_AdditionalSalary" EntityType="Self.d_AdditionalSalary" />
+          <EntitySet Name="d_DayOff" EntityType="Self.d_DayOff" />
+          <EntitySet Name="d_Payment" EntityType="Self.d_Payment" />
+          <EntitySet Name="d_Salary" EntityType="Self.d_Salary" />
+          <EntitySet Name="m_Rate" EntityType="Self.m_Rate" />
+          <EntitySet Name="m_User" EntityType="Self.m_User" />
+          <AssociationSet Name="fk_d_empadditionalsalary" Association="Self.fk_d_empadditionalsalary">
+            <End Role="m_User" EntitySet="m_User" />
+            <End Role="d_AdditionalSalary" EntitySet="d_AdditionalSalary" />
           </AssociationSet>
-          <AssociationSet Name="FK_ADDITIONAL_RATES" Association="Self.FK_ADDITIONAL_RATES">
-            <End Role="M_RATES" EntitySet="M_RATES" />
-            <End Role="T_ADDITIONAL_PAYMENT" EntitySet="T_ADDITIONAL_PAYMENT" />
+          <AssociationSet Name="fk_d_rateadditionalsalary" Association="Self.fk_d_rateadditionalsalary">
+            <End Role="m_Rate" EntitySet="m_Rate" />
+            <End Role="d_AdditionalSalary" EntitySet="d_AdditionalSalary" />
           </AssociationSet>
-          <AssociationSet Name="FK_DAYOFF_USER" Association="Self.FK_DAYOFF_USER">
-            <End Role="M_USER" EntitySet="M_USER" />
-            <End Role="T_DAYOFF" EntitySet="T_DAYOFF" />
+          <AssociationSet Name="fk_d_empdayoff" Association="Self.fk_d_empdayoff">
+            <End Role="m_User" EntitySet="m_User" />
+            <End Role="d_DayOff" EntitySet="d_DayOff" />
           </AssociationSet>
-          <AssociationSet Name="FK_PAYMENT_USER" Association="Self.FK_PAYMENT_USER">
-            <End Role="M_USER" EntitySet="M_USER" />
-            <End Role="T_PAYMENT" EntitySet="T_PAYMENT" />
+          <AssociationSet Name="fk_d_emppayment" Association="Self.fk_d_emppayment">
+            <End Role="m_User" EntitySet="m_User" />
+            <End Role="d_Payment" EntitySet="d_Payment" />
+          </AssociationSet>
+          <AssociationSet Name="fk_d_salarypayment" Association="Self.fk_d_salarypayment">
+            <End Role="d_Salary" EntitySet="d_Salary" />
+            <End Role="d_Payment" EntitySet="d_Payment" />
+          </AssociationSet>
+          <AssociationSet Name="fk_d_empsalary" Association="Self.fk_d_empsalary">
+            <End Role="m_User" EntitySet="m_User" />
+            <End Role="d_Salary" EntitySet="d_Salary" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -271,61 +344,63 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PayrollModelStoreContainer" CdmEntityContainer="PayrollEntities">
-          <EntitySetMapping Name="M_EMP_SALARY">
-            <EntityTypeMapping TypeName="PayrollModel.M_EMP_SALARY">
-              <MappingFragment StoreEntitySet="M_EMP_SALARY">
-                <ScalarProperty Name="SALARY_ID" ColumnName="SALARY_ID" />
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
-                <ScalarProperty Name="BASIC_SALARY" ColumnName="BASIC_SALARY" />
+          <EntitySetMapping Name="d_AdditionalSalary">
+            <EntityTypeMapping TypeName="PayrollModel.d_AdditionalSalary">
+              <MappingFragment StoreEntitySet="d_AdditionalSalary">
+                <ScalarProperty Name="AdditionalSalaryId" ColumnName="AdditionalSalaryId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="RateId" ColumnName="RateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="M_RATES">
-            <EntityTypeMapping TypeName="PayrollModel.M_RATES">
-              <MappingFragment StoreEntitySet="M_RATES">
-                <ScalarProperty Name="RATE_TYPE" ColumnName="RATE_TYPE" />
-                <ScalarProperty Name="RATE_ID" ColumnName="RATE_ID" />
-                <ScalarProperty Name="RATE_NAME" ColumnName="RATE_NAME" />
-                <ScalarProperty Name="RATE_VALUE" ColumnName="RATE_VALUE" />
+          <EntitySetMapping Name="d_DayOff">
+            <EntityTypeMapping TypeName="PayrollModel.d_DayOff">
+              <MappingFragment StoreEntitySet="d_DayOff">
+                <ScalarProperty Name="DayOffId" ColumnName="DayOffId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="DayOffDate" ColumnName="DayOffDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="M_USER">
-            <EntityTypeMapping TypeName="PayrollModel.M_USER">
-              <MappingFragment StoreEntitySet="M_USER">
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
-                <ScalarProperty Name="USERPASS" ColumnName="USERPASS" />
-                <ScalarProperty Name="USER_CATEGORY" ColumnName="USER_CATEGORY" />
+          <EntitySetMapping Name="d_Payment">
+            <EntityTypeMapping TypeName="PayrollModel.d_Payment">
+              <MappingFragment StoreEntitySet="d_Payment">
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="SalaryId" ColumnName="SalaryId" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaymentMonth" ColumnName="PaymentMonth" />
+                <ScalarProperty Name="PaymentYear" ColumnName="PaymentYear" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T_ADDITIONAL_PAYMENT">
-            <EntityTypeMapping TypeName="PayrollModel.T_ADDITIONAL_PAYMENT">
-              <MappingFragment StoreEntitySet="T_ADDITIONAL_PAYMENT">
-                <ScalarProperty Name="ADDITIONAL_ID" ColumnName="ADDITIONAL_ID" />
-                <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
-                <ScalarProperty Name="RATE_ID" ColumnName="RATE_ID" />
-                <ScalarProperty Name="NOTE" ColumnName="NOTE" />
-                <ScalarProperty Name="IS_APPROVED" ColumnName="IS_APPROVED" />
+          <EntitySetMapping Name="d_Salary">
+            <EntityTypeMapping TypeName="PayrollModel.d_Salary">
+              <MappingFragment StoreEntitySet="d_Salary">
+                <ScalarProperty Name="SalaryId" ColumnName="SalaryId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="BasicSalary" ColumnName="BasicSalary" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T_DAYOFF">
-            <EntityTypeMapping TypeName="PayrollModel.T_DAYOFF">
-              <MappingFragment StoreEntitySet="T_DAYOFF">
-                <ScalarProperty Name="DAYOFF_ID" ColumnName="DAYOFF_ID" />
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
-                <ScalarProperty Name="DAYOFF_DATE" ColumnName="DAYOFF_DATE" />
+          <EntitySetMapping Name="m_Rate">
+            <EntityTypeMapping TypeName="PayrollModel.m_Rate">
+              <MappingFragment StoreEntitySet="m_Rate">
+                <ScalarProperty Name="RateId" ColumnName="RateId" />
+                <ScalarProperty Name="RateName" ColumnName="RateName" />
+                <ScalarProperty Name="RateValue" ColumnName="RateValue" />
+                <ScalarProperty Name="RateType" ColumnName="RateType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T_PAYMENT">
-            <EntityTypeMapping TypeName="PayrollModel.T_PAYMENT">
-              <MappingFragment StoreEntitySet="T_PAYMENT">
-                <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
-                <ScalarProperty Name="PAYMENT_MONTH" ColumnName="PAYMENT_MONTH" />
-                <ScalarProperty Name="PAYMENT_YEAR" ColumnName="PAYMENT_YEAR" />
-                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <EntitySetMapping Name="m_User">
+            <EntityTypeMapping TypeName="PayrollModel.m_User">
+              <MappingFragment StoreEntitySet="m_User">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

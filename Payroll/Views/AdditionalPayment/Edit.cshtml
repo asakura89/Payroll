@@ -1,4 +1,4 @@
-﻿@model Payroll.Models.T_ADDITIONAL_PAYMENT
+@model Payroll.Models.d_AdditionalSalary
 
 @{
     ViewBag.Title = "Edit";
@@ -11,46 +11,46 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>T_ADDITIONAL_PAYMENT</legend>
+        <legend>d_AdditionalSalary</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ADDITIONAL_ID)
+            @Html.LabelFor(model => model.AdditionalSalaryId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ADDITIONAL_ID)
-            @Html.ValidationMessageFor(model => model.ADDITIONAL_ID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PAYMENT_ID)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PAYMENT_ID)
-            @Html.ValidationMessageFor(model => model.PAYMENT_ID)
+            @Html.EditorFor(model => model.AdditionalSalaryId)
+            @Html.ValidationMessageFor(model => model.AdditionalSalaryId)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.RATE_ID, "M_RATES")
+            @Html.LabelFor(model => model.RateId)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("RATE_ID", String.Empty)
-            @Html.ValidationMessageFor(model => model.RATE_ID)
+            @Html.EditorFor(model => model.RateId)
+            @Html.ValidationMessageFor(model => model.RateId)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.NOTE)
+            @Html.LabelFor(model => model.RateId, "m_Rate")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.NOTE)
-            @Html.ValidationMessageFor(model => model.NOTE)
+            @Html.DropDownList("RateId", String.Empty)
+            @Html.ValidationMessageFor(model => model.RateId)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IS_APPROVED)
+            @Html.LabelFor(model => model.m_User.Username)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.IS_APPROVED)
-            @Html.ValidationMessageFor(model => model.IS_APPROVED)
+            @Html.EditorFor(model => model.m_User.Username)
+            @Html.ValidationMessageFor(model => model.m_User.Username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.m_User.Username)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.m_User.Username)
+            @Html.ValidationMessageFor(model => model.m_User.Username)
         </div>
 
         <p>

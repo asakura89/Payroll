@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Payroll.Models.T_DAYOFF>
+@model IEnumerable<Payroll.Models.d_DayOff>
 
 @{
     ViewBag.Title = "Index";
@@ -12,13 +12,13 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DAYOFF_ID)
+            @Html.DisplayNameFor(model => model.DayOffId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.M_USER.USERPASS)
+            @Html.DisplayNameFor(model => model.m_User.Password)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DAYOFF_DATE)
+            @Html.DisplayNameFor(model => model.DayOffDate)
         </th>
         <th></th>
     </tr>
@@ -26,13 +26,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.DAYOFF_ID)
+            @Html.DisplayFor(modelItem => item.DayOffId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.M_USER.USERPASS)
+            @Html.DisplayFor(modelItem => item.m_User.Password)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DAYOFF_DATE)
+            @Html.DisplayFor(modelItem => item.DayOffDate)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

@@ -1,5 +1,5 @@
-﻿@using Payroll.Helpers
-@model Payroll.Models.M_USER
+@using Payroll.Helpers
+@model Payroll.Models.m_User
 
 @{
     ViewBag.Title = "Dashboard";
@@ -8,7 +8,7 @@
 }
 
 <div class="jumbotron">
-    <h1>Hello, @Model.USERNAME</h1>
+    <h1>Hello, @Model.Username</h1>
     <p>Welcome to Payroll Web Apps. Click menu to look around.</p>
     <a href='@Url.Action("Logout", "Home")' class="btn btn-primary btn-lg" role="button">Logout</a>
 </div>

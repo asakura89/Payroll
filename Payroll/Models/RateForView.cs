@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -6,10 +6,10 @@ namespace Payroll.Models
 {
     public class RateForView
     {
-        public M_RATES Rate { get; set; }
+        public m_Rate Rate { get; set; }
         public List<SelectListItem> RateTypeDescList { get; private set; }
 
-        public RateForView(M_RATES rate)
+        public RateForView(m_Rate rate)
         {
             Rate = rate;
             RateTypeDescList = new List<SelectListItem>();
@@ -24,6 +24,6 @@ namespace Payroll.Models
             RateTypeDescList.Add(item);
         }
 
-        public RateForView() : this(new M_RATES()) { }
+        public RateForView() : this(new m_Rate()) { }
     }
 }

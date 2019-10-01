@@ -1,4 +1,4 @@
-﻿@using Payroll.Helpers
+@using Payroll.Helpers
 @model Payroll.Models.SalaryForView
 
 @{
@@ -19,17 +19,17 @@
     @Html.ValidationSummary(true)
 
     <div class="input-group">
-        @Html.LabelFor(model => model.Salary.SALARY_ID, "Salary Id", new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Salary.SALARY_ID, new { @class = "form-control", @readonly = "readonly" })
+        @Html.LabelFor(model => model.Salary.SalaryId, "Salary Id", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Salary.SalaryId, new { @class = "form-control", @readonly = "readonly" })
     </div>
     <div class="input-group">
-        @Html.LabelFor(model => model.Salary.USERNAME, "User", new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Salary.USERNAME, new { @class = "form-control", @readonly = "readonly" })
+        @Html.LabelFor(model => model.Salary.Username, "User", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Salary.Username, new { @class = "form-control", @readonly = "readonly" })
     </div>
     <div class="input-group">
-        @Html.LabelFor(model => model.Salary.BASIC_SALARY, "Basic Salary", new { @class = "control-label" })
-        @Html.TextBoxFor(model => model.Salary.BASIC_SALARY, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Salary.BASIC_SALARY)
+        @Html.LabelFor(model => model.Salary.BasicSalary, "Basic Salary", new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Salary.BasicSalary, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Salary.BasicSalary)
     </div>
     <div class="input-group" style="margin-top: 10px;">
         <button type="submit" class="btn btn-primary">

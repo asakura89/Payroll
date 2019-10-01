@@ -1,6 +1,6 @@
-﻿@using GridMvc.Html
+@using GridMvc.Html
 @using Payroll.Helpers
-@model IEnumerable<Payroll.Models.T_PAYMENT>
+@model IEnumerable<Payroll.Models.d_Payment>
 
 @{
     ViewBag.Title = "Payment List";
@@ -31,16 +31,16 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PAYMENT_ID)
+            @Html.DisplayNameFor(model => model.PaymentId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PAYMENT_MONTH)
+            @Html.DisplayNameFor(model => model.PaymentMonth)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PAYMENT_YEAR)
+            @Html.DisplayNameFor(model => model.PaymentYear)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.M_USER.USERPASS)
+            @Html.DisplayNameFor(model => model.m_User.Password)
         </th>
         <th></th>
     </tr>
@@ -48,16 +48,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PAYMENT_ID)
+            @Html.DisplayFor(modelItem => item.PaymentId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PAYMENT_MONTH)
+            @Html.DisplayFor(modelItem => item.PaymentMonth)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PAYMENT_YEAR)
+            @Html.DisplayFor(modelItem => item.PaymentYear)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.M_USER.USERPASS)
+            @Html.DisplayFor(modelItem => item.m_User.Password)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

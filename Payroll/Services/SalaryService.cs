@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,15 +10,15 @@ namespace Payroll.Services
     {
         private PayrollEntities db = new PayrollEntities();
 
-        public List<M_EMP_SALARY> GetAllSalaries()
+        public List<d_Salary> GetAllSalaries()
         {
-            return db.M_EMP_SALARY.ToList();
+            return db.d_Salary.ToList();
         }
 
         private String GetNewId()
         {
             String lastId = db.Database
-                    .SqlQuery<String>("SELECT TOP 1 SALARY_ID FROM M_EMP_SALARY ORDER BY SALARY_ID DESC")
+                    .SqlQuery<String>("SELECT TOP 1 SalaryId FROM d_Salary ORDER BY SalaryId DESC")
                     .SingleOrDefault();
             lastId = lastId ?? "0";
 
@@ -27,9 +27,9 @@ namespace Payroll.Services
             return newId;
         }
 
-        public M_EMP_SALARY GetById(String id)
+        public d_Salary GetById(String id)
         {
-            M_EMP_SALARY salary = db.M_EMP_SALARY.Find(id);
+            d_Salary salary = db.d_Salary.Find(id);
 
             if (salary == null)
                 throw new ObjectNotFoundException("Salary with id: " + id);
@@ -37,14 +37,14 @@ namespace Payroll.Services
             return salary;
         }
 
-        public void CreateNewSalary(M_EMP_SALARY salary)
+        public void CreateNewSalary(d_Salary salary)
         {
-            salary.SALARY_ID = GetNewId();
-            db.M_EMP_SALARY.Add(salary);
+            salary.SalaryId = GetNewId();
+            db.d_Salary.Add(salary);
             db.SaveChanges();
         }
 
-        public void UpdateExistingSalary(M_EMP_SALARY salary)
+        public void UpdateExistingSalary(d_Salary salary)
         {
             db.Entry(salary).State = EntityState.Modified;
             db.SaveChanges();
@@ -52,8 +52,8 @@ namespace Payroll.Services
 
         public void DeleteExistingSalary(String id)
         {
-            M_EMP_SALARY salary = GetById(id);
-            db.M_EMP_SALARY.Remove(salary);
+            d_Salary salary = GetById(id);
+            db.d_Salary.Remove(salary);
             db.SaveChanges();
         }
 

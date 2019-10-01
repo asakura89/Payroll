@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,15 +10,15 @@ namespace Payroll.Services
     {
         private PayrollEntities db = new PayrollEntities();
 
-        public List<M_RATES> GetAllRates()
+        public List<m_Rate> GetAllRates()
         {
-            return db.M_RATES.ToList();
+            return db.m_Rate.ToList();
         }
 
         private String GetNewId()
         {
             String lastId = db.Database
-                    .SqlQuery<String>("SELECT TOP 1 RATE_ID FROM M_RATES ORDER BY RATE_ID DESC")
+                    .SqlQuery<String>("SELECT TOP 1 RateId FROM m_Rate ORDER BY RateId DESC")
                     .SingleOrDefault();
             lastId = lastId ?? "0";
 
@@ -27,9 +27,9 @@ namespace Payroll.Services
             return newId;
         }
 
-        public M_RATES GetById(String id)
+        public m_Rate GetById(String id)
         {
-            M_RATES rate = db.M_RATES.Find(id);
+            m_Rate rate = db.m_Rate.Find(id);
 
             if (rate == null)
                 throw new ObjectNotFoundException("Rate with Id: " + id);
@@ -37,14 +37,14 @@ namespace Payroll.Services
             return rate;
         }
 
-        public void CreateNewRate(M_RATES rate)
+        public void CreateNewRate(m_Rate rate)
         {
-            rate.RATE_ID = GetNewId();
-            db.M_RATES.Add(rate);
+            rate.RateId = GetNewId();
+            db.m_Rate.Add(rate);
             db.SaveChanges();
         }
 
-        public void UpdateExistingRate(M_RATES rate)
+        public void UpdateExistingRate(m_Rate rate)
         {
             db.Entry(rate).State = EntityState.Modified;
             db.SaveChanges();
@@ -52,8 +52,8 @@ namespace Payroll.Services
 
         public void DeleteExistingRate(String id)
         {
-            M_RATES rate = GetById(id);
-            db.M_RATES.Remove(rate);
+            m_Rate rate = GetById(id);
+            db.m_Rate.Remove(rate);
             db.SaveChanges();
         }
 

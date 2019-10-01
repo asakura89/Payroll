@@ -1,4 +1,4 @@
-﻿@using GridMvc.Html
+@using GridMvc.Html
 @using Payroll.Helpers
 @model IEnumerable<Payroll.Models.SalaryForView>
 
@@ -18,19 +18,19 @@
 {
     columns.Add()
         .RenderValueAs(model =>
-            @<a href='@Url.Action("Edit", "Salary", new {id = model.Salary.SALARY_ID})' class="btn btn-primary" role="button">
+            @<a href='@Url.Action("Edit", "Salary", new {id = model.Salary.SalaryId})' class="btn btn-primary" role="button">
                 <span class="glyphicon glyphicon-file"></span>
             </a>)
         .Sanitized(false).Encoded(false).Titled("Edit").SetWidth(20);
     columns.Add()
         .RenderValueAs(model =>
-            @<a href='@Url.Action("Delete", "Salary", new {id = model.Salary.SALARY_ID})' class="btn btn-primary" role="button">
+            @<a href='@Url.Action("Delete", "Salary", new {id = model.Salary.SalaryId})' class="btn btn-primary" role="button">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>)
         .Sanitized(false).Encoded(false).Titled("Delete").SetWidth(20);
-    columns.Add(model => model.Salary.SALARY_ID).Titled("Salary Id").Sortable(true).SetWidth(60);
-    columns.Add(model => model.Salary.USERNAME).Titled("Username").Sortable(true).SetWidth(60);
-    columns.Add(model => model.Salary.BASIC_SALARY).Titled("Basic Salary").Sortable(true).SetWidth(120);
+    columns.Add(model => model.Salary.SalaryId).Titled("Salary Id").Sortable(true).SetWidth(60);
+    columns.Add(model => model.Salary.Username).Titled("Username").Sortable(true).SetWidth(60);
+    columns.Add(model => model.Salary.BasicSalary).Titled("Basic Salary").Sortable(true).SetWidth(120);
 }).WithPaging(50)
 
 

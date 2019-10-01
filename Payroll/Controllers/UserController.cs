@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -24,7 +24,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            List<M_USER> userList;
+            List<m_User> userList;
             using (service = new UserService())
                 userList = service.GetAllUsers();
 
@@ -47,7 +47,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_USER user = ConvertFormDataToUser(form);
+            m_User user = ConvertFormDataToUser(form);
             if (ModelState.IsValid)
             {
                 using (service = new UserService())
@@ -59,12 +59,12 @@ namespace Payroll.Controllers
             return View(new UserForView(user));
         }
 
-        private M_USER ConvertFormDataToUser(FormCollection form)
+        private m_User ConvertFormDataToUser(FormCollection form)
         {
-            var user = new M_USER();
-            user.USERNAME = form["User.USERNAME"] ?? String.Empty;
-            user.USERPASS = form["User.USERPASS"];
-            user.USER_CATEGORY = form["User.USER_CATEGORY"];
+            var user = new m_User();
+            user.Username = form["User.Username"] ?? String.Empty;
+            user.Password = form["User.Password"];
+            user.Category = form["User.Category"];
 
             return user;
         }
@@ -75,7 +75,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_USER user;
+            m_User user;
             using (service = new UserService())
                 user = service.GetByUsername(id);
 
@@ -89,7 +89,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_USER user = ConvertFormDataToUser(form);
+            m_User user = ConvertFormDataToUser(form);
             if (ModelState.IsValid)
             {
                 using (service = new UserService())
@@ -107,7 +107,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_USER user;
+            m_User user;
             try
             {
                 using (service = new UserService())
@@ -153,7 +153,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_USER user;
+            m_User user;
             using (service = new UserService())
                 user = service.GetByUsername(id);
 

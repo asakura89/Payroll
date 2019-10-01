@@ -12,12 +12,18 @@ namespace Payroll.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class M_EMP_SALARY
+    public partial class d_Salary
     {
-        public string SALARY_ID { get; set; }
-        public string USERNAME { get; set; }
-        public Nullable<decimal> BASIC_SALARY { get; set; }
+        public d_Salary()
+        {
+            this.d_Payment = new HashSet<d_Payment>();
+        }
     
-        public virtual M_USER M_USER { get; set; }
+        public string SalaryId { get; set; }
+        public string Username { get; set; }
+        public decimal BasicSalary { get; set; }
+    
+        public virtual ICollection<d_Payment> d_Payment { get; set; }
+        public virtual m_User m_User { get; set; }
     }
 }

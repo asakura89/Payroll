@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,14 +10,14 @@ namespace Payroll.Services
     {
         private PayrollEntities db = new PayrollEntities();
 
-        public List<M_USER> GetAllUsers()
+        public List<m_User> GetAllUsers()
         {
-            return db.M_USER.ToList();
+            return db.m_User.ToList();
         }
 
-        public M_USER GetByUsername(String username)
+        public m_User GetByUsername(String username)
         {
-            M_USER user = db.M_USER.Find(username);
+            m_User user = db.m_User.Find(username);
 
             if (user == null)
                 throw new ObjectNotFoundException("User with Username: " + username);
@@ -25,19 +25,19 @@ namespace Payroll.Services
             return user;
         }
 
-        public void CreateNewUser(M_USER user)
+        public void CreateNewUser(m_User user)
         {
             var securityService = new SecurityService();
 
-            user.USERPASS = securityService.HashString(user.USERPASS);
-            db.M_USER.Add(user);
+            user.Password = securityService.HashString(user.Password);
+            db.m_User.Add(user);
             db.SaveChanges();
         }
 
-        public void UpdateExistingUser(M_USER user)
+        public void UpdateExistingUser(m_User user)
         {
-            M_USER existing = GetByUsername(user.USERNAME);
-            existing.USER_CATEGORY = user.USER_CATEGORY;
+            m_User existing = GetByUsername(user.Username);
+            existing.Category = user.Category;
 
             db.Entry(existing).State = EntityState.Modified;
             db.SaveChanges();
@@ -47,7 +47,7 @@ namespace Payroll.Services
         {
             var securityService = new SecurityService();
 
-            M_USER existing = GetByUsername(username);
+            m_User existing = GetByUsername(username);
 
             if (oldPassword == String.Empty)
                 throw new InvalidOperationException("Old Password must not empty.");
@@ -55,12 +55,12 @@ namespace Payroll.Services
                 throw new InvalidOperationException("Confirm Old Password must not empty.");
             if (securityService.HashString(oldPassword) != securityService.HashString(confirmPassword))
                 throw new InvalidOperationException("Confirm Password is not same as Old Password.");
-            if (securityService.HashString(oldPassword) != existing.USERPASS)
+            if (securityService.HashString(oldPassword) != existing.Password)
                 throw new InvalidOperationException("Old Password is incorrect.");
             if (securityService.HashString(oldPassword) == securityService.HashString(newPassword))
                 throw new InvalidOperationException("New Password must not same as before.");
 
-            existing.USERPASS = securityService.HashString(newPassword);
+            existing.Password = securityService.HashString(newPassword);
 
             db.Entry(existing).State = EntityState.Modified;
             db.SaveChanges();
@@ -68,8 +68,8 @@ namespace Payroll.Services
 
         public void DeleteExistingUser(String username)
         {
-            M_USER user = GetByUsername(username);
-            db.M_USER.Remove(user);
+            m_User user = GetByUsername(username);
+            db.m_User.Remove(user);
             db.SaveChanges();
         }
 

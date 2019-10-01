@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -16,31 +16,27 @@ namespace Payroll.Controllers
         //
         // GET: /Payment/
 
-        public ActionResult Index()
-        {
-            var t_payment = db.T_PAYMENT.Include(t => t.M_USER);
-            return View(t_payment.ToList());
+        public ActionResult Index() {
+            var d_Payment = db.d_Payment.Include(t => t.m_User);
+            return View(d_Payment.ToList());
         }
 
         //
         // GET: /Payment/Details/5
 
-        public ActionResult Details(string id = null)
-        {
-            T_PAYMENT t_payment = db.T_PAYMENT.Find(id);
-            if (t_payment == null)
-            {
+        public ActionResult Details(string id = null) {
+            d_Payment d_Payment = db.d_Payment.Find(id);
+            if (d_Payment == null) {
                 return HttpNotFound();
             }
-            return View(t_payment);
+            return View(d_Payment);
         }
 
         //
         // GET: /Payment/Create
 
-        public ActionResult Create()
-        {
-            ViewBag.USERNAME = new SelectList(db.M_USER, "USERNAME", "USERPASS");
+        public ActionResult Create() {
+            ViewBag.Username = new SelectList(db.m_User, "Username", "Password");
             return View();
         }
 
@@ -49,31 +45,27 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(T_PAYMENT t_payment)
-        {
-            if (ModelState.IsValid)
-            {
-                db.T_PAYMENT.Add(t_payment);
+        public ActionResult Create(d_Payment d_Payment) {
+            if (ModelState.IsValid) {
+                db.d_Payment.Add(d_Payment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.USERNAME = new SelectList(db.M_USER, "USERNAME", "USERPASS", t_payment.USERNAME);
-            return View(t_payment);
+            ViewBag.Username = new SelectList(db.m_User, "Username", "Password", d_Payment.Username);
+            return View(d_Payment);
         }
 
         //
         // GET: /Payment/Edit/5
 
-        public ActionResult Edit(string id = null)
-        {
-            T_PAYMENT t_payment = db.T_PAYMENT.Find(id);
-            if (t_payment == null)
-            {
+        public ActionResult Edit(string id = null) {
+            d_Payment d_Payment = db.d_Payment.Find(id);
+            if (d_Payment == null) {
                 return HttpNotFound();
             }
-            ViewBag.USERNAME = new SelectList(db.M_USER, "USERNAME", "USERPASS", t_payment.USERNAME);
-            return View(t_payment);
+            ViewBag.USERNAME = new SelectList(db.m_User, "Username", "Password", d_Payment.Username);
+            return View(d_Payment);
         }
 
         //
@@ -81,29 +73,25 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(T_PAYMENT t_payment)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(t_payment).State = EntityState.Modified;
+        public ActionResult Edit(d_Payment d_Payment) {
+            if (ModelState.IsValid) {
+                db.Entry(d_Payment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.USERNAME = new SelectList(db.M_USER, "USERNAME", "USERPASS", t_payment.USERNAME);
-            return View(t_payment);
+            ViewBag.USERNAME = new SelectList(db.m_User, "Username", "Password", d_Payment.Username);
+            return View(d_Payment);
         }
 
         //
         // GET: /Payment/Delete/5
 
-        public ActionResult Delete(string id = null)
-        {
-            T_PAYMENT t_payment = db.T_PAYMENT.Find(id);
-            if (t_payment == null)
-            {
+        public ActionResult Delete(string id = null) {
+            d_Payment d_Payment = db.d_Payment.Find(id);
+            if (d_Payment == null) {
                 return HttpNotFound();
             }
-            return View(t_payment);
+            return View(d_Payment);
         }
 
         //
@@ -111,10 +99,9 @@ namespace Payroll.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            T_PAYMENT t_payment = db.T_PAYMENT.Find(id);
-            db.T_PAYMENT.Remove(t_payment);
+        public ActionResult DeleteConfirmed(string id) {
+            d_Payment d_Payment = db.d_Payment.Find(id);
+            db.d_Payment.Remove(d_Payment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

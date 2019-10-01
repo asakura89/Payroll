@@ -25,11 +25,11 @@ namespace Payroll.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<M_EMP_SALARY> M_EMP_SALARY { get; set; }
-        public DbSet<M_RATES> M_RATES { get; set; }
-        public DbSet<M_USER> M_USER { get; set; }
-        public DbSet<T_ADDITIONAL_PAYMENT> T_ADDITIONAL_PAYMENT { get; set; }
-        public DbSet<T_DAYOFF> T_DAYOFF { get; set; }
-        public DbSet<T_PAYMENT> T_PAYMENT { get; set; }
+        public DbSet<d_AdditionalSalary> d_AdditionalSalary { get; set; }
+        public DbSet<d_DayOff> d_DayOff { get; set; }
+        public DbSet<d_Payment> d_Payment { get; set; }
+        public DbSet<d_Salary> d_Salary { get; set; }
+        public DbSet<m_Rate> m_Rate { get; set; }
+        public DbSet<m_User> m_User { get; set; }
     }
 }

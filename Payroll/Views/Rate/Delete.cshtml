@@ -1,4 +1,4 @@
-﻿@using Payroll.Helpers
+@using Payroll.Helpers
 @model Payroll.Models.RateForView
 
 @{
@@ -19,16 +19,16 @@
     
     <dl>
         <dt>Rate Id:</dt>
-        <dd>@Model.Rate.RATE_ID</dd>
+        <dd>@Model.Rate.RateId</dd>
 
         <dt>Name:</dt>
-        <dd>@Model.Rate.RATE_NAME</dd>
+        <dd>@Model.Rate.RateName</dd>
         
         <dt>Type:</dt>
-        <dd>@Model.RateTypeDescList.First(type => type.Value == Model.Rate.RATE_TYPE).Text</dd>
+        <dd>@Model.RateTypeDescList.First(type => type.Value == Model.Rate.RateType).Text</dd>
 
         <dt>Value:</dt>
-        <dd>@Model.Rate.RATE_VALUE</dd>
+        <dd>@Model.Rate.RateValue</dd>
     </dl>
     
     <div class="input-group" style="margin-top: 10px;">

@@ -1,4 +1,4 @@
-﻿@model Payroll.Models.T_PAYMENT
+@model Payroll.Models.d_Payment
 
 @{
     ViewBag.Title = "Create";
@@ -11,38 +11,38 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>T_PAYMENT</legend>
+        <legend>d_Payment</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PAYMENT_ID)
+            @Html.LabelFor(model => model.PaymentId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PAYMENT_ID)
-            @Html.ValidationMessageFor(model => model.PAYMENT_ID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PAYMENT_MONTH)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PAYMENT_MONTH)
-            @Html.ValidationMessageFor(model => model.PAYMENT_MONTH)
+            @Html.EditorFor(model => model.PaymentId)
+            @Html.ValidationMessageFor(model => model.PaymentId)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PAYMENT_YEAR)
+            @Html.LabelFor(model => model.PaymentMonth)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PAYMENT_YEAR)
-            @Html.ValidationMessageFor(model => model.PAYMENT_YEAR)
+            @Html.EditorFor(model => model.PaymentMonth)
+            @Html.ValidationMessageFor(model => model.PaymentMonth)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.USERNAME, "M_USER")
+            @Html.LabelFor(model => model.PaymentYear)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("USERNAME", String.Empty)
-            @Html.ValidationMessageFor(model => model.USERNAME)
+            @Html.EditorFor(model => model.PaymentYear)
+            @Html.ValidationMessageFor(model => model.PaymentYear)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Username, "m_User")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Username", String.Empty)
+            @Html.ValidationMessageFor(model => model.Username)
         </div>
 
         <p>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Payroll.Models;
 
 namespace Payroll.Services
@@ -13,13 +13,13 @@ namespace Payroll.Services
         {
             var securityService = new SecurityService();
             String hashedPassword = securityService.HashString(userpass);
-            M_USER userInDb;
+            m_User userInDb;
             Boolean isUserValid = false;
             using (db = new PayrollEntities())
             {
-                userInDb = db.M_USER.Find(username);
+                userInDb = db.m_User.Find(username);
                 if (userInDb != null)
-                    isUserValid = userInDb.USERPASS == hashedPassword;
+                    isUserValid = userInDb.Password == hashedPassword;
             }
 
             return isUserValid;

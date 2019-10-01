@@ -1,4 +1,4 @@
-﻿@model Payroll.Models.T_DAYOFF
+@model Payroll.Models.d_DayOff
 
 @{
     ViewBag.Title = "Delete";
@@ -8,27 +8,27 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>T_DAYOFF</legend>
+    <legend>d_DayOff</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.DAYOFF_ID)
+         @Html.DisplayNameFor(model => model.DayOffId)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.DAYOFF_ID)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.M_USER.USERPASS)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.M_USER.USERPASS)
+        @Html.DisplayFor(model => model.DayOffId)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.DAYOFF_DATE)
+         @Html.DisplayNameFor(model => model.m_User.Password)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.DAYOFF_DATE)
+        @Html.DisplayFor(model => model.m_User.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DayOffDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DayOffDate)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

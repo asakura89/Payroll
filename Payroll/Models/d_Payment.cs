@@ -12,12 +12,18 @@ namespace Payroll.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class T_DAYOFF
+    public partial class d_Payment
     {
-        public string DAYOFF_ID { get; set; }
-        public string USERNAME { get; set; }
-        public System.DateTime DAYOFF_DATE { get; set; }
+        public string PaymentId { get; set; }
+        public string Username { get; set; }
+        public string SalaryId { get; set; }
+        public System.DateTime PaymentDate { get; set; }
+        public int PaymentMonth { get; set; }
+        public int PaymentYear { get; set; }
+        public bool Approved { get; set; }
+        public string Note { get; set; }
     
-        public virtual M_USER M_USER { get; set; }
+        public virtual m_User m_User { get; set; }
+        public virtual d_Salary d_Salary { get; set; }
     }
 }

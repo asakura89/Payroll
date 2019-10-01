@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -24,7 +24,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            List<M_EMP_SALARY> salaryList;
+            List<d_Salary> salaryList;
             using (service = new SalaryService())
                 salaryList = service.GetAllSalaries();
 
@@ -47,7 +47,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_EMP_SALARY salary = ConvertFormDataToSalary(form);
+            d_Salary salary = ConvertFormDataToSalary(form);
             if (ModelState.IsValid)
             {
                 using (service = new SalaryService())
@@ -59,12 +59,12 @@ namespace Payroll.Controllers
             return View(new SalaryForView(salary));
         }
 
-        private M_EMP_SALARY ConvertFormDataToSalary(FormCollection form)
+        private d_Salary ConvertFormDataToSalary(FormCollection form)
         {
-            var salary = new M_EMP_SALARY();
-            salary.SALARY_ID = form["Salary.SALARY_ID"] ?? String.Empty;
-            salary.USERNAME = form["Salary.USERNAME"];
-            salary.BASIC_SALARY = Convert.ToDecimal(form["Salary.BASIC_SALARY"]);
+            var salary = new d_Salary();
+            salary.SalaryId= form["Salary.SalaryId"] ?? String.Empty;
+            salary.Username = form["Salary.Username"];
+            salary.BasicSalary = Convert.ToDecimal(form["Salary.BasicSalary"]);
 
             return salary;
         }
@@ -75,7 +75,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_EMP_SALARY salary;
+            d_Salary salary;
             using (service = new SalaryService())
                 salary = service.GetById(id);
 
@@ -89,7 +89,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_EMP_SALARY salary = ConvertFormDataToSalary(form);
+            d_Salary salary = ConvertFormDataToSalary(form);
             if (ModelState.IsValid)
             {
                 using (service = new SalaryService())
@@ -107,7 +107,7 @@ namespace Payroll.Controllers
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            M_EMP_SALARY salary;
+            d_Salary salary;
             using (service = new SalaryService())
                 salary = service.GetById(id);
 

@@ -12,21 +12,23 @@ namespace Payroll.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class M_USER
+    public partial class m_User
     {
-        public M_USER()
+        public m_User()
         {
-            this.M_EMP_SALARY = new HashSet<M_EMP_SALARY>();
-            this.T_DAYOFF = new HashSet<T_DAYOFF>();
-            this.T_PAYMENT = new HashSet<T_PAYMENT>();
+            this.d_AdditionalSalary = new HashSet<d_AdditionalSalary>();
+            this.d_DayOff = new HashSet<d_DayOff>();
+            this.d_Payment = new HashSet<d_Payment>();
+            this.d_Salary = new HashSet<d_Salary>();
         }
     
-        public string USERNAME { get; set; }
-        public string USERPASS { get; set; }
-        public string USER_CATEGORY { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Category { get; set; }
     
-        public virtual ICollection<M_EMP_SALARY> M_EMP_SALARY { get; set; }
-        public virtual ICollection<T_DAYOFF> T_DAYOFF { get; set; }
-        public virtual ICollection<T_PAYMENT> T_PAYMENT { get; set; }
+        public virtual ICollection<d_AdditionalSalary> d_AdditionalSalary { get; set; }
+        public virtual ICollection<d_DayOff> d_DayOff { get; set; }
+        public virtual ICollection<d_Payment> d_Payment { get; set; }
+        public virtual ICollection<d_Salary> d_Salary { get; set; }
     }
 }

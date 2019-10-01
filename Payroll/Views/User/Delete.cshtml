@@ -1,4 +1,4 @@
-﻿@using Payroll.Helpers
+@using Payroll.Helpers
 @model Payroll.Models.UserForView
 
 @{
@@ -19,10 +19,10 @@
 
     <dl>
         <dt>Username:</dt>
-        <dd>@Model.User.USERNAME</dd>
+        <dd>@Model.User.Username</dd>
 
         <dt>Category:</dt>
-        <dd>@Model.UserCategoryDescList.First(cat => cat.Value == Model.User.USER_CATEGORY).Text</dd>
+        <dd>@Model.UserCategoryDescList.First(cat => cat.Value == Model.User.Category).Text</dd>
     </dl>
 
     <div class="input-group" style="margin-top: 10px;">

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Web.Mvc;
 using Payroll.Models;
@@ -9,9 +9,9 @@ namespace Payroll.Helpers
     public class ControllerHelper
     {
         private Controller currentController;
-        public M_USER AuthorizedUser
+        public m_User AuthorizedUser
         {
-            get { return currentController.Session[LoginService.LoggedUser] as M_USER; }
+            get { return currentController.Session[LoginService.LoggedUser] as m_User; }
             set { currentController.Session[LoginService.LoggedUser] = value; }
         }
 
