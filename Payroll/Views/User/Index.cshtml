@@ -8,6 +8,17 @@
     ViewBag.IsUserMenuActive = "active";
 }
 
+@helper RenderDeleteButton(Payroll.Models.UserForView model)
+{
+    if (model.User.Category != "1")
+    {
+        <a href='@Url.Action("Delete", "User", new { id = model.User.Username })' class="btn btn-primary" role="button">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+    }
+    else { }
+}
+
 <a href='@Url.Action("Create", "User")'
    class="btn btn-primary" role="button">
     <span class="glyphicon glyphicon-plus-sign"></span>
@@ -23,10 +34,7 @@
              </a>)
         .Sanitized(false).Encoded(false).Titled("Edit").SetWidth(20);
     columns.Add()
-        .RenderValueAs(model =>
-            @<a href='@Url.Action("Delete", "User", new {id = model.User.Username})' class="btn btn-primary" role="button">
-                <span class="glyphicon glyphicon-remove"></span>
-            </a>)
+        .RenderValueAs(model => RenderDeleteButton(model))
         .Sanitized(false).Encoded(false).Titled("Delete").SetWidth(20);
     columns.Add(model => model.User.Username).Titled("Username").Sortable(true).SetWidth(120);
     columns.Add(model => model.UserCategoryDescList.First(cat => cat.Value == model.User.Category).Text).Titled("Category").Sortable(true).SetWidth(60);

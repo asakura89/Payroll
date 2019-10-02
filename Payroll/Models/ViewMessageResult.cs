@@ -1,15 +1,12 @@
-﻿using System;
+using System;
 
-namespace Payroll.Models
-{
-    public class ViewMessageResult
-    {
-        public Int16 Status { get; private set; }
-        public String Message { get; private set; }
-        public String Content { get; private set; }
+namespace Payroll.Models {
+    public class ViewMessageResult {
+        public Int16 Status { get; set; }
+        public String Message { get; set; }
+        public String Content { get; set; }
 
-        public ViewMessageResult(Int16 status, String message, String content)
-        {
+        public ViewMessageResult(Int16 status, String message, String content) {
             Status = status;
             Message = message;
             Content = content;

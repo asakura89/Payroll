@@ -4,19 +4,13 @@ using System.Data;
 using System.Linq;
 using Payroll.Models;
 
-namespace Payroll.Services
-{
-    public class UserService : IDisposable
-    {
-        private PayrollEntities db = new PayrollEntities();
+namespace Payroll.Services {
+    public class UserService : IDisposable {
+        readonly PayrollEntities db = new PayrollEntities();
 
-        public List<m_User> GetAllUsers()
-        {
-            return db.m_User.ToList();
-        }
+        public List<m_User> GetAllUsers() => db.m_User.ToList();
 
-        public m_User GetByUsername(String username)
-        {
+        public m_User GetByUsername(String username) {
             m_User user = db.m_User.Find(username);
 
             if (user == null)
@@ -25,8 +19,7 @@ namespace Payroll.Services
             return user;
         }
 
-        public void CreateNewUser(m_User user)
-        {
+        public void CreateNewUser(m_User user) {
             var securityService = new SecurityService();
 
             user.Password = securityService.HashString(user.Password);
@@ -34,8 +27,7 @@ namespace Payroll.Services
             db.SaveChanges();
         }
 
-        public void UpdateExistingUser(m_User user)
-        {
+        public void UpdateExistingUser(m_User user) {
             m_User existing = GetByUsername(user.Username);
             existing.Category = user.Category;
 
@@ -43,8 +35,7 @@ namespace Payroll.Services
             db.SaveChanges();
         }
 
-        public void ChangePassword(String username, String oldPassword, String confirmPassword, String newPassword)
-        {
+        public void ChangePassword(String username, String oldPassword, String confirmPassword, String newPassword) {
             var securityService = new SecurityService();
 
             m_User existing = GetByUsername(username);
@@ -66,16 +57,12 @@ namespace Payroll.Services
             db.SaveChanges();
         }
 
-        public void DeleteExistingUser(String username)
-        {
+        public void DeleteExistingUser(String username) {
             m_User user = GetByUsername(username);
             db.m_User.Remove(user);
             db.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            db.Dispose();
-        }
+        public void Dispose() => db.Dispose();
     }
 }

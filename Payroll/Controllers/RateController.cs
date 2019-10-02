@@ -6,21 +6,17 @@ using Payroll.Helpers;
 using Payroll.Models;
 using Payroll.Services;
 
-namespace Payroll.Controllers
-{
-    public class RateController : Controller
-    {
-        private ControllerHelper helper;
-        private RateService service;
+namespace Payroll.Controllers {
+    public class RateController : Controller {
+        readonly ControllerHelper helper;
+        RateService service;
 
-        public RateController()
-        {
+        public RateController() {
             helper = new ControllerHelper(this);
         }
 
         [HttpGet]
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -32,8 +28,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -42,14 +37,12 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection form)
-        {
+        public ActionResult Create(FormCollection form) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
             m_Rate rate = ConvertFormDataToRate(form);
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 using (service = new RateService())
                     service.CreateNewRate(rate);
 
@@ -59,20 +52,19 @@ namespace Payroll.Controllers
             return View(new RateForView(rate));
         }
 
-        private m_Rate ConvertFormDataToRate(FormCollection form)
-        {
-            var rate = new m_Rate();
-            rate.RateId = form["Rate.RateId"] ?? String.Empty;
-            rate.RateName = form["Rate.RateName"];
-            rate.RateType = form["Rate.RateType"];
-            rate.RateValue = Convert.ToDecimal(form["Rate.RateValue"]);
+        m_Rate ConvertFormDataToRate(FormCollection form) {
+            var rate = new m_Rate {
+                RateId = form["Rate.RateId"] ?? String.Empty,
+                RateName = form["Rate.RateName"],
+                RateType = form["Rate.RateType"],
+                RateValue = Convert.ToDecimal(form["Rate.RateValue"])
+            };
 
             return rate;
         }
 
         [HttpGet]
-        public ActionResult Edit(String id = null)
-        {
+        public ActionResult Edit(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -85,14 +77,12 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(FormCollection form)
-        {
+        public ActionResult Edit(FormCollection form) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
             m_Rate rate = ConvertFormDataToRate(form);
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 using (service = new RateService())
                     service.UpdateExistingRate(rate);
 
@@ -103,8 +93,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(String id = null)
-        {
+        public ActionResult Delete(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -117,8 +106,7 @@ namespace Payroll.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(String id = null)
-        {
+        public ActionResult DeleteConfirmed(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 

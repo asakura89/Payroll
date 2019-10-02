@@ -16,7 +16,7 @@ namespace Payroll.Models
     {
         public string DayOffId { get; set; }
         public string Username { get; set; }
-        public System.DateTime DayOffDate { get; set; }
+        public DateTime DayOffDate { get; set; }
     
         public virtual m_User m_User { get; set; }
     }

@@ -6,21 +6,17 @@ using Payroll.Helpers;
 using Payroll.Models;
 using Payroll.Services;
 
-namespace Payroll.Controllers
-{
-    public class UserController : Controller
-    {
-        private ControllerHelper helper;
-        private UserService service;
+namespace Payroll.Controllers {
+    public class UserController : Controller {
+        readonly ControllerHelper helper;
+        UserService service;
 
-        public UserController()
-        {
+        public UserController() {
             helper = new ControllerHelper(this);
         }
 
         [HttpGet]
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -32,8 +28,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -42,14 +37,12 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection form)
-        {
+        public ActionResult Create(FormCollection form) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
             m_User user = ConvertFormDataToUser(form);
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 using (service = new UserService())
                     service.CreateNewUser(user);
 
@@ -59,19 +52,18 @@ namespace Payroll.Controllers
             return View(new UserForView(user));
         }
 
-        private m_User ConvertFormDataToUser(FormCollection form)
-        {
-            var user = new m_User();
-            user.Username = form["User.Username"] ?? String.Empty;
-            user.Password = form["User.Password"];
-            user.Category = form["User.Category"];
+        m_User ConvertFormDataToUser(FormCollection form) {
+            var user = new m_User {
+                Username = form["User.Username"] ?? String.Empty,
+                Password = form["User.Password"],
+                Category = form["User.Category"]
+            };
 
             return user;
         }
 
         [HttpGet]
-        public ActionResult Edit(string id = null)
-        {
+        public ActionResult Edit(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -84,14 +76,12 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(FormCollection form)
-        {
+        public ActionResult Edit(FormCollection form) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
             m_User user = ConvertFormDataToUser(form);
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 using (service = new UserService())
                     service.UpdateExistingUser(user);
 
@@ -102,19 +92,16 @@ namespace Payroll.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangePasswordView(String username)
-        {
+        public ActionResult ChangePasswordView(String username) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
             m_User user;
-            try
-            {
+            try {
                 using (service = new UserService())
                     user = service.GetByUsername(username);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 return Json(new ViewMessageResult(0, ex.Message + "<br><br/>" + ex.StackTrace));
             }
 
@@ -122,23 +109,19 @@ namespace Payroll.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangePassword(FormCollection form)
-        {
+        public ActionResult ChangePassword(FormCollection form) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
-            try
-            {
+            try {
                 using (service = new UserService())
                     service.ChangePassword(form["User.USERNAME"], form["OldPassword"], form["ConfirmOldPassword"], form["NewPassword"]);
             }
-            catch (InvalidOperationException ioex)
-            {
+            catch (InvalidOperationException ioex) {
                 TempData.Add("ErrorMessage", ioex.Message);
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 TempData.Add("ErrorMessage", ex.Message + "<br><br/>" + ex.StackTrace);
                 return RedirectToAction("Index");
             }
@@ -148,8 +131,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(String id = null)
-        {
+        public ActionResult Delete(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -162,8 +144,7 @@ namespace Payroll.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(String id = null)
-        {
+        public ActionResult DeleteConfirmed(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 

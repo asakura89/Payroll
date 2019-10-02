@@ -17,7 +17,7 @@ namespace Payroll.Models
         public string PaymentId { get; set; }
         public string Username { get; set; }
         public string SalaryId { get; set; }
-        public System.DateTime PaymentDate { get; set; }
+        public DateTime PaymentDate { get; set; }
         public int PaymentMonth { get; set; }
         public int PaymentYear { get; set; }
         public bool Approved { get; set; }

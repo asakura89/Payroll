@@ -1,23 +1,19 @@
 using System;
+using System.Web.Mvc;
 using Payroll.Helpers;
 using Payroll.Models;
-using System.Web.Mvc;
 using Payroll.Services;
 
-namespace Payroll.Controllers
-{
-    public class HomeController : Controller
-    {
-        private ControllerHelper helper;
+namespace Payroll.Controllers {
+    public class HomeController : Controller {
+        readonly ControllerHelper helper;
 
-        public HomeController()
-        {
+        public HomeController() {
             helper = new ControllerHelper(this);
         }
 
         [HttpGet]
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -25,8 +21,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
-        {
+        public ActionResult Login() {
             if (helper.AuthorizedUser == null)
                 return View();
 
@@ -34,13 +29,11 @@ namespace Payroll.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(m_User user)
-        {
-            LoginService loginSvc = new LoginService();
+        public ActionResult Login(m_User user) {
+            var loginSvc = new LoginService();
             Boolean isUserValid = loginSvc.IsUserValid(user.Username, user.Password);
-            if (isUserValid)
-            {
-                UserService userSvc = new UserService();
+            if (isUserValid) {
+                var userSvc = new UserService();
                 helper.AuthorizedUser = userSvc.GetByUsername(user.Username);
                 return Redirect(Url.Action("Dashboard", "Home"));
             }
@@ -49,8 +42,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Dashboard()
-        {
+        public ActionResult Dashboard() {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -58,8 +50,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Logout()
-        {
+        public ActionResult Logout() {
             helper.AuthorizedUser = null;
 
             return Redirect(Url.Action("Login", "Home"));

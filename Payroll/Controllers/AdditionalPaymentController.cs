@@ -1,30 +1,26 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Payroll.Models;
 
-namespace Payroll.Controllers
-{
-    public class AdditionalPaymentController : Controller
-    {
-        private PayrollEntities db = new PayrollEntities();
+namespace Payroll.Controllers {
+    public class AdditionalPaymentController : Controller {
+        readonly PayrollEntities db = new PayrollEntities();
 
         //
         // GET: /AdditionalPayment/
 
         public ActionResult Index() {
-            var d_AdditionalSalary = db.d_AdditionalSalary.Include(t => t.m_Rate);
+            IQueryable<d_AdditionalSalary> d_AdditionalSalary = db.d_AdditionalSalary.Include(t => t.m_Rate);
             return View(d_AdditionalSalary.ToList());
         }
 
         //
         // GET: /AdditionalPayment/Details/5
 
-        public ActionResult Details(string id = null) {
+        public ActionResult Details(String id = null) {
             d_AdditionalSalary d_AdditionalSalary = db.d_AdditionalSalary.Find(id);
             if (d_AdditionalSalary == null) {
                 return HttpNotFound();
@@ -59,7 +55,7 @@ namespace Payroll.Controllers
         //
         // GET: /AdditionalPayment/Edit/5
 
-        public ActionResult Edit(string id = null) {
+        public ActionResult Edit(String id = null) {
             d_AdditionalSalary d_AdditionalSalary = db.d_AdditionalSalary.Find(id);
             if (d_AdditionalSalary == null) {
                 return HttpNotFound();
@@ -86,7 +82,7 @@ namespace Payroll.Controllers
         //
         // GET: /AdditionalPayment/Delete/5
 
-        public ActionResult Delete(string id = null) {
+        public ActionResult Delete(String id = null) {
             d_AdditionalSalary d_AdditionalSalary = db.d_AdditionalSalary.Find(id);
             if (d_AdditionalSalary == null) {
                 return HttpNotFound();
@@ -99,15 +95,14 @@ namespace Payroll.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id) {
+        public ActionResult DeleteConfirmed(String id) {
             d_AdditionalSalary d_AdditionalSalary = db.d_AdditionalSalary.Find(id);
             db.d_AdditionalSalary.Remove(d_AdditionalSalary);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
+        protected override void Dispose(Boolean disposing) {
             db.Dispose();
             base.Dispose(disposing);
         }

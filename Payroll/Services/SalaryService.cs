@@ -4,22 +4,16 @@ using System.Data;
 using System.Linq;
 using Payroll.Models;
 
-namespace Payroll.Services
-{
-    public class SalaryService : IDisposable
-    {
-        private PayrollEntities db = new PayrollEntities();
+namespace Payroll.Services {
+    public class SalaryService : IDisposable {
+        readonly PayrollEntities db = new PayrollEntities();
 
-        public List<d_Salary> GetAllSalaries()
-        {
-            return db.d_Salary.ToList();
-        }
+        public List<d_Salary> GetAllSalaries() => db.d_Salary.ToList();
 
-        private String GetNewId()
-        {
+        String GetNewId() {
             String lastId = db.Database
-                    .SqlQuery<String>("SELECT TOP 1 SalaryId FROM d_Salary ORDER BY SalaryId DESC")
-                    .SingleOrDefault();
+                .SqlQuery<String>("SELECT TOP 1 SalaryId FROM d_Salary ORDER BY SalaryId DESC")
+                .SingleOrDefault();
             lastId = lastId ?? "0";
 
             String newId = (Convert.ToInt32(lastId) + 1).ToString();
@@ -27,8 +21,7 @@ namespace Payroll.Services
             return newId;
         }
 
-        public d_Salary GetById(String id)
-        {
+        public d_Salary GetById(String id) {
             d_Salary salary = db.d_Salary.Find(id);
 
             if (salary == null)
@@ -37,29 +30,23 @@ namespace Payroll.Services
             return salary;
         }
 
-        public void CreateNewSalary(d_Salary salary)
-        {
+        public void CreateNewSalary(d_Salary salary) {
             salary.SalaryId = GetNewId();
             db.d_Salary.Add(salary);
             db.SaveChanges();
         }
 
-        public void UpdateExistingSalary(d_Salary salary)
-        {
+        public void UpdateExistingSalary(d_Salary salary) {
             db.Entry(salary).State = EntityState.Modified;
             db.SaveChanges();
         }
 
-        public void DeleteExistingSalary(String id)
-        {
+        public void DeleteExistingSalary(String id) {
             d_Salary salary = GetById(id);
             db.d_Salary.Remove(salary);
             db.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            db.Dispose();
-        }
+        public void Dispose() => db.Dispose();
     }
 }

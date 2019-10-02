@@ -6,21 +6,17 @@ using Payroll.Helpers;
 using Payroll.Models;
 using Payroll.Services;
 
-namespace Payroll.Controllers
-{
-    public class SalaryController : Controller
-    {
-        private ControllerHelper helper;
-        private SalaryService service;
+namespace Payroll.Controllers {
+    public class SalaryController : Controller {
+        readonly ControllerHelper helper;
+        SalaryService service;
 
-        public SalaryController()
-        {
+        public SalaryController() {
             helper = new ControllerHelper(this);
         }
 
         [HttpGet]
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -32,8 +28,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -42,14 +37,12 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection form)
-        {
+        public ActionResult Create(FormCollection form) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
             d_Salary salary = ConvertFormDataToSalary(form);
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 using (service = new SalaryService())
                     service.CreateNewSalary(salary);
 
@@ -59,19 +52,18 @@ namespace Payroll.Controllers
             return View(new SalaryForView(salary));
         }
 
-        private d_Salary ConvertFormDataToSalary(FormCollection form)
-        {
-            var salary = new d_Salary();
-            salary.SalaryId= form["Salary.SalaryId"] ?? String.Empty;
-            salary.Username = form["Salary.Username"];
-            salary.BasicSalary = Convert.ToDecimal(form["Salary.BasicSalary"]);
+        d_Salary ConvertFormDataToSalary(FormCollection form) {
+            var salary = new d_Salary {
+                SalaryId= form["Salary.SalaryId"] ?? String.Empty,
+                Username = form["Salary.Username"],
+                BasicSalary = Convert.ToDecimal(form["Salary.BasicSalary"])
+            };
 
             return salary;
         }
 
         [HttpGet]
-        public ActionResult Edit(String id = null)
-        {
+        public ActionResult Edit(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -84,14 +76,12 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(FormCollection form)
-        {
+        public ActionResult Edit(FormCollection form) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
             d_Salary salary = ConvertFormDataToSalary(form);
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 using (service = new SalaryService())
                     service.UpdateExistingSalary(salary);
 
@@ -102,8 +92,7 @@ namespace Payroll.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(String id = null)
-        {
+        public ActionResult Delete(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
@@ -116,8 +105,7 @@ namespace Payroll.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(String id = null)
-        {
+        public ActionResult DeleteConfirmed(String id = null) {
             if (helper.AuthorizedUser == null)
                 return Redirect(Url.Action("Login", "Home"));
 
