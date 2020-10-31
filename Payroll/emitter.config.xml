@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <events>
+    <event name="App.Start" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppStart" />
+    <event name="App.BeginRequest" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppBeginRequest" />
+    <event name="App.EndRequest" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppEndRequest" />
+    <event name="App.End" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppEnd" />
+    <event name="App.Error" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppError" />
+    <event name="App.SessionStart" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppSessionStart" />
+    <event name="App.SessionEnd" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppSessionEnd" />
+  </events>
+</configuration>
