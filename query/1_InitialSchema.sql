@@ -78,4 +78,7 @@ GO
 /*
     1: Admin, 2: Manager
 */
-INSERT INTO m_User VALUES ('admin', 'ISMvKXpXpadDiUoOSoAfww==', 1)
+INSERT INTO m_User VALUES
+    ('admin', 'ISMvKXpXpadDiUoOSoAfww==', 1),
+    ('manager', 'HQJYwkQKjRnnFikrIx4xkA==', 2)
+
