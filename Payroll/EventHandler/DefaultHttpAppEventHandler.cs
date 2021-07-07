@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Emi;
+using log4net;
 using Payroll.Models;
 using Shiro;
 
@@ -10,6 +11,7 @@ namespace Payroll.EventHandler {
             String configFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config.xml");
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(configFilePath));
 
+            LogExt.UseExternalLogger(LogManager.GetLogger(typeof(DefaultHttpAppEventHandler).FullName));
             var ctx = e.Context as HttpAppEventContext;
             LogExt.Debug(this.GetFormattedCallerInfoString(), new {ctx.EventName, Sender = ctx.Sender.GetType().FullName, ctx.Args});
         }
