@@ -13,20 +13,10 @@ namespace Payroll.Controllers {
         }
 
         [HttpGet]
-        public ActionResult Index() {
-            if (helper.AuthorizedUser == null)
-                return Redirect(Url.Action("Login", "Home"));
-
-            return Redirect(Url.Action("Dashboard", "Home"));
-        }
+        public ActionResult Index() => this.HandleDefaultPipeline("home:Index");
 
         [HttpGet]
-        public ActionResult Login() {
-            if (helper.AuthorizedUser == null)
-                return View();
-
-            return Redirect(Url.Action("Dashboard", "Home"));
-        }
+        public ActionResult Login() => this.HandleDefaultPipeline("home:Login");
 
         [HttpPost]
         public ActionResult Login(m_User user) {

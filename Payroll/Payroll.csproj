@@ -128,6 +128,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdditionalPaymentController.cs" />
     <Compile Include="EventHandler\DefaultHttpAppEventHandler.cs" />
+    <Compile Include="Helpers\ControllerExt.cs" />
     <Compile Include="Helpers\HttpAppEventArgsFactory.cs" />
     <Compile Include="Models\HttpAppEventContext.cs" />
     <Compile Include="Helpers\GlobalContext.cs" />
@@ -179,18 +180,31 @@
     <Compile Include="Models\SalaryForView.cs" />
     <Compile Include="Models\UserForView.cs" />
     <Compile Include="Models\ViewMessageResult.cs" />
+    <Compile Include="Pipeline\ControllerPipelineContext.cs" />
+    <Compile Include="Pipeline\DefaultHomeControllerPipeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\RateService.cs" />
     <Compile Include="Services\SalaryService.cs" />
     <Compile Include="Services\SecurityService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Vendors\Arvy\ActionResponseViewModel.cs" />
     <Compile Include="Vendors\Eksmaru\XmlExt.cs" />
     <Compile Include="Vendors\Emi\Emitter.cs" />
     <Compile Include="Vendors\Emi\IEmitterLoader.cs" />
     <Compile Include="Vendors\Emi\XmlConfigEmitterLoader.cs" />
     <Compile Include="Vendors\Exy\ExceptionExt.cs" />
     <Compile Include="Vendors\Nvy\NameValueItem.cs" />
+    <Compile Include="Vendors\Reflx\ReflectionExt.cs" />
+    <Compile Include="Vendors\Reflx\TypeAndAssembly.cs" />
+    <Compile Include="Vendors\Reflx\TypeAndAssemblyParser.cs" />
+    <Compile Include="Vendors\Ria\IPipelineLoader.cs" />
+    <Compile Include="Vendors\Ria\PipelineContext.cs" />
+    <Compile Include="Vendors\Ria\PipelineException.cs" />
+    <Compile Include="Vendors\Ria\PipelineExecutor.cs" />
+    <Compile Include="Vendors\Ria\XmlConfigPipelineLoader.cs" />
+    <Compile Include="Vendors\Ria\XmlPipelineActionDefinition.cs" />
+    <Compile Include="Vendors\Ria\XmlPipelinesDefinition.cs" />
     <Compile Include="Vendors\Shiro\LogExt.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +274,9 @@
     <None Include="log4net.config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="pipeline.config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
