@@ -1,54 +1,70 @@
 using System;
 using System.IO;
+using System.Web;
 using Emi;
 using log4net;
-using Payroll.Models;
 using Shiro;
 
 namespace Payroll.EventHandler {
     public class DefaultHttpAppEventHandler {
-        public void OnAppStart(EmitterEventArgs e) {
+        public void OnAppStart(Object source, EmitterEventArgs e) {
             String configFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config.xml");
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(configFilePath));
 
             LogExt.UseExternalLogger(LogManager.GetLogger(typeof(DefaultHttpAppEventHandler).FullName));
-            var ctx = e.Context as HttpAppEventContext;
-            LogExt.Debug(this.GetFormattedCallerInfoString(), new {ctx.EventName, Sender = ctx.Sender.GetType().FullName, ctx.Args});
+            LogExt.Debug(this.GetFormattedCallerInfoString(), new {
+                e.EventName,
+                Sender = source.GetType().FullName,
+                Args = e.Data["EventArgs"] as EventArgs
+            });
         }
 
-        public void OnAppBeginRequest(EmitterEventArgs e) {
-            var ctx = e.Context as HttpAppEventContext;
-            LogExt.Debug(this.GetFormattedCallerInfoString(), new {ctx.EventName, Sender = ctx.Sender.GetType().FullName, ctx.Args});
-        }
+        public void OnAppBeginRequest(Object source, EmitterEventArgs e) =>
+            LogExt.Debug(this.GetFormattedCallerInfoString(), new {
+                e.EventName,
+                Sender = source.GetType().FullName,
+                Args = e.Data["EventArgs"] as EventArgs
+            });
 
-        public void OnAppEndRequest(EmitterEventArgs e) {
-            var ctx = e.Context as HttpAppEventContext;
-            LogExt.Debug(this.GetFormattedCallerInfoString(), new {ctx.EventName, Sender = ctx.Sender.GetType().FullName, ctx.Args});
-        }
+        public void OnAppEndRequest(Object source, EmitterEventArgs e) =>
+            LogExt.Debug(this.GetFormattedCallerInfoString(), new {
+                e.EventName,
+                Sender = source.GetType().FullName,
+                Args = e.Data["EventArgs"] as EventArgs
+            });
 
-        public void OnAppEnd(EmitterEventArgs e) {
-            var ctx = e.Context as HttpAppEventContext;
-            LogExt.Debug(this.GetFormattedCallerInfoString(), new {ctx.EventName, Sender = ctx.Sender.GetType().FullName, ctx.Args});
-        }
+        public void OnAppEnd(Object source, EmitterEventArgs e) =>
+            LogExt.Debug(this.GetFormattedCallerInfoString(), new {
+                e.EventName,
+                Sender = source.GetType().FullName,
+                Args = e.Data["EventArgs"] as EventArgs
+            });
 
-        public void OnAppError(EmitterEventArgs e) {
+        public void OnAppError(Object source, EmitterEventArgs e) {
             String caller = this.GetFormattedCallerInfoString();
-            var ctx = e.Context as HttpAppEventContext;
-            LogExt.Debug(caller, new {ctx.EventName, Sender = ctx.Sender.GetType().FullName, ctx.Args});
-            
-            Exception lastError = ctx.HttpContext.Server.GetLastError();
+            LogExt.Debug(caller, new {
+                e.EventName,
+                Sender = source.GetType().FullName,
+                Args = e.Data["EventArgs"] as EventArgs
+            });
+
+            Exception lastError = (e.Data["HttpContext"] as HttpContext).Server.GetLastError();
             if (lastError != null)
                 LogExt.Error(caller, lastError);
         }
 
-        public void OnAppSessionStart(EmitterEventArgs e) {
-            var ctx = e.Context as HttpAppEventContext;
-            LogExt.Debug(this.GetFormattedCallerInfoString(), new {ctx.EventName, Sender = ctx.Sender.GetType().FullName, ctx.Args});
-        }
+        public void OnAppSessionStart(Object source, EmitterEventArgs e) =>
+            LogExt.Debug(this.GetFormattedCallerInfoString(), new {
+                e.EventName,
+                Sender = source.GetType().FullName,
+                Args = e.Data["EventArgs"] as EventArgs
+            });
 
-        public void OnAppSessionEnd(EmitterEventArgs e) {
-            var ctx = e.Context as HttpAppEventContext;
-            LogExt.Debug(this.GetFormattedCallerInfoString(), new {ctx.EventName, Sender = ctx.Sender.GetType().FullName, ctx.Args});
-        }
+        public void OnAppSessionEnd(Object source, EmitterEventArgs e) =>
+            LogExt.Debug(this.GetFormattedCallerInfoString(), new {
+                e.EventName,
+                Sender = source.GetType().FullName,
+                Args = e.Data["EventArgs"] as EventArgs
+            });
     }
 }

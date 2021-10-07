@@ -129,8 +129,7 @@
     <Compile Include="Controllers\AdditionalPaymentController.cs" />
     <Compile Include="EventHandler\DefaultHttpAppEventHandler.cs" />
     <Compile Include="Helpers\ControllerExt.cs" />
-    <Compile Include="Helpers\HttpAppEventArgsFactory.cs" />
-    <Compile Include="Models\HttpAppEventContext.cs" />
+    <Compile Include="Helpers\ILoggerAdapter.cs" />
     <Compile Include="Helpers\GlobalContext.cs" />
     <Compile Include="Helpers\ControllerHelper.cs" />
     <Compile Include="Controllers\DayOffController.cs" />
@@ -182,30 +181,16 @@
     <Compile Include="Models\ViewMessageResult.cs" />
     <Compile Include="Pipeline\ControllerPipelineContext.cs" />
     <Compile Include="Pipeline\DefaultHomeControllerPipeline.cs" />
+    <Compile Include="Pipeline\ICancelledPipelineHandler.cs" />
+    <Compile Include="Pipeline\CancelledPipelineHandler.cs" />
+    <Compile Include="Pipeline\PipelineResultHandler.cs" />
+    <Compile Include="Pipeline\IPipelineResultHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\RateService.cs" />
     <Compile Include="Services\SalaryService.cs" />
     <Compile Include="Services\SecurityService.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="Vendors\Arvy\ActionResponseViewModel.cs" />
-    <Compile Include="Vendors\Eksmaru\XmlExt.cs" />
-    <Compile Include="Vendors\Emi\Emitter.cs" />
-    <Compile Include="Vendors\Emi\IEmitterLoader.cs" />
-    <Compile Include="Vendors\Emi\XmlConfigEmitterLoader.cs" />
-    <Compile Include="Vendors\Exy\ExceptionExt.cs" />
-    <Compile Include="Vendors\Nvy\NameValueItem.cs" />
-    <Compile Include="Vendors\Reflx\ReflectionExt.cs" />
-    <Compile Include="Vendors\Reflx\TypeAndAssembly.cs" />
-    <Compile Include="Vendors\Reflx\TypeAndAssemblyParser.cs" />
-    <Compile Include="Vendors\Ria\IPipelineLoader.cs" />
-    <Compile Include="Vendors\Ria\PipelineContext.cs" />
-    <Compile Include="Vendors\Ria\PipelineException.cs" />
-    <Compile Include="Vendors\Ria\PipelineExecutor.cs" />
-    <Compile Include="Vendors\Ria\XmlConfigPipelineLoader.cs" />
-    <Compile Include="Vendors\Ria\XmlPipelineActionDefinition.cs" />
-    <Compile Include="Vendors\Ria\XmlPipelinesDefinition.cs" />
-    <Compile Include="Vendors\Shiro\LogExt.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -268,14 +253,11 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <None Include="emitter.config.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="log4net.config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="pipeline.config.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="payroll.config.xml">
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -366,12 +348,51 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emi\Emi.csproj">
+      <Project>{2851ab33-c4fa-41e1-96ca-925b4dd1a355}</Project>
+      <Name>Emi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meutia\Meutia.csproj">
+      <Project>{fbe2490b-a481-49bd-99e1-c84b0d53726b}</Project>
+      <Name>Meutia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ria\Arvy\Arvy.csproj">
+      <Project>{3a658b44-725f-44a8-a0f0-710e56e99bc6}</Project>
+      <Name>Arvy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ria\Arvy\Exy\Exy.csproj">
+      <Project>{aed04e87-1239-4184-9572-0e6a860e23a0}</Project>
+      <Name>Exy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ria\Eksmaru\Eksmaru.csproj">
+      <Project>{60bfcdd8-c920-4999-9727-2be8f3238236}</Project>
+      <Name>Eksmaru</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ria\Reflx\Nvy\Nvy.csproj">
+      <Project>{d3ce71df-1cf7-44fa-9b67-ea24168a7ad6}</Project>
+      <Name>Nvy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ria\Reflx\Reflx.csproj">
+      <Project>{ff60305a-a48b-4e61-ab32-48acca429ad9}</Project>
+      <Name>Reflx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ria\Ria.csproj">
+      <Project>{677002b2-8ba8-4e0a-a03e-1981d4756a37}</Project>
+      <Name>Ria</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shiro\Shiro.csproj">
+      <Project>{bc3382b0-85d2-4812-967f-5ef2d39b0a22}</Project>
+      <Name>Shiro</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

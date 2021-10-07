@@ -1,0 +1,12 @@
+[submodule "Ria"]
+	path = Ria
+	url = https://github.com/asakura89/Ria
+[submodule "Shiro"]
+	path = Shiro
+	url = https://github.com/asakura89/Shiro
+[submodule "Emi"]
+	path = Emi
+	url = https://github.com/asakura89/Emi
+[submodule "Meutia"]
+	path = Meutia
+	url = https://github.com/asakura89/Meutia

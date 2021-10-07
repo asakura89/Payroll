@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <pipelines name="home:Index" contextType="Ria.PipelineContext, Payroll">
+    <action type="Payroll.Pipeline.DefaultHomeControllerPipeline, Payroll" method="BeforeExecutingController" />
+    <action type="Payroll.Pipeline.DefaultHomeControllerPipeline, Payroll" method="HomeIndex" />
+    <action type="Payroll.Pipeline.DefaultHomeControllerPipeline, Payroll" method="AfterExecutingController" />
+  </pipelines>
+  <pipelines name="home:Login" contextType="Ria.PipelineContext, Payroll">
+    <action type="Payroll.Pipeline.DefaultHomeControllerPipeline, Payroll" method="BeforeExecutingController" />
+    <action type="Payroll.Pipeline.DefaultHomeControllerPipeline, Payroll" method="HomeLogin" />
+    <action type="Payroll.Pipeline.DefaultHomeControllerPipeline, Payroll" method="AfterExecutingController" />
+  </pipelines>
+
+  <events>
+    <event name="PipelineResultHandler.ResultContainsInfo" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppStart" />
+    <event name="PipelineResultHandler.ResultContainsWarn" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppStart" />
+    <event name="PipelineResultHandler.ResultContainsError" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppStart" />
+    <event name="PipelineResultHandler.PipelineExecutionFailed" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppStart" />
+    <event name="PipelineResultHandler.PipelineExecutionSuccess" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppStart" />
+    
+    <event name="MvcApplication.AppStart" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppStart" />
+    <event name="MvcApplication.AppBeginRequest" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppBeginRequest" />
+    <event name="MvcApplication.AppEndRequest" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppEndRequest" />
+    <event name="MvcApplication.AppEnd" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppEnd" />
+    <event name="MvcApplication.AppError" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppError" />
+    <event name="MvcApplication.AppSessionStart" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppSessionStart" />
+    <event name="MvcApplication.AppSessionEnd" type="Payroll.EventHandler.DefaultHttpAppEventHandler, Payroll" method="OnAppSessionEnd" />
+  </events>
+</configuration>
