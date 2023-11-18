@@ -1,48 +1,42 @@
-import { redirect } from '@sveltejs/kit';
-import type { Actions, PageServerLoad, RequestEvent } from './$types';
+import type { RequestHandler } from '../../../home/login/$types';
+import prisma from '$lib/prisma';
+import * as crypto from "crypto";
 
-export const load = (async () => {
-    console.log("home/login/+page.server.ts");
+export const POST: RequestHandler = async (request: object) => {
+    console.log("api/home/login/+server.ts");
+    console.log(request);
+    return new Response();
+};
 
-    // const user = await db.getUserFromSession(cookies.get('sessionid'));
-    // return { user };
+// move to loginService.ts
+async function isUserValid (username: string, userpass: string) : Promise<boolean> {
+    let hashedPwd: string = hashString(userpass);
+    let m_User = await prisma.m_User.findMany({
+        where: {
+            Password: hashedPwd
+        }
+    });
 
-    return {
-        title: "Login"
-    };
-}) satisfies PageServerLoad;
+    return (m_User.length > 0);
+}
 
-export const actions = {
-    default: async (event: RequestEvent) => {
-        console.log(event);
-
-        const form = await event.request.formData();
-        const username = form.get("username-textbox");
-        const password = form.get("password-textbox");
-
-        // const user = await db.getUser(email);
-        // cookies.set('sessionid', await db.createSession(user));
-
-        //return { success: true };
-        throw redirect(302, "/dashboard");
-    }
-} satisfies Actions;
-
-export const prerender = false;
-export const ssr = true;
-export const csr = true;
+// move to securityService.ts
+function hashString(string2Hash: string): string {
+    return crypto
+        .createHash("md5")
+        .update(string2Hash)
+        .digest("base64");
+};
 
 
 /*
 
-RequestEvent
-
 {
   cookies: {
     get: [Function: get],
-    getAll: [Function: getAll],     
+    getAll: [Function: getAll],
     set: [Function: set],
-    delete: [Function: delete],     
+    delete: [Function: delete],
     serialize: [Function: serialize]
   },
   fetch: [AsyncFunction (anonymous)],
@@ -99,10 +93,10 @@ RequestEvent
       [Symbol(headers map sorted)]: null
     }
   },
-  route: { id: '/home/login' },
+  route: { id: '/api/home/login' },
   setHeaders: [Function: setHeaders],
   url: URL {
-    href: 'http://127.0.0.1:5173/home/login',
+    href: 'http://127.0.0.1:5173/api/home/login',
     origin: 'http://127.0.0.1:5173',
     protocol: 'http:',
     username: '',
@@ -110,7 +104,7 @@ RequestEvent
     host: '127.0.0.1:5173',
     hostname: '127.0.0.1',
     port: '5173',
-    pathname: '/home/login',
+    pathname: '/api/home/login',
     search: '',
     searchParams: URLSearchParams {},
     hash: ''

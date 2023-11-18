@@ -1,0 +1,12 @@
+{
+  "m_Users": [{
+      "username": "admin",
+      "password": "ISMvKXpXpadDiUoOSoAfww==",
+      "category": 1
+    }, {
+      "username": "manager",
+      "password": "HQJYwkQKjRnnFikrIx4xkA==",
+      "category": 2
+    }
+  ]
+}

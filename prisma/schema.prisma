@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model m_Rate {
+  RateId String @id
+  RateName String
+  RateValue Decimal
+  RateType String
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+
+  AdditionalSalaryRate d_AdditionalSalary[]
+}
+
+model m_User {
+  Username String @id
+  Password String
+  Category String
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+
+  EmployeSalary d_Salary?
+  EmployeeAdditionalSalaries d_AdditionalSalary[]
+  EmployeeDayOffs d_DayOff[]
+  EmployeePayments d_Payment[]
+}
+
+model d_Salary {
+  SalaryId String @id
+  Username String @unique
+  BasicSalary Decimal
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+
+  EmployeeSalary m_User @relation(fields: [Username], references: [Username])
+  EmployeePayments d_Payment[]
+}
+
+model d_AdditionalSalary {
+  AdditionalSalaryId String @id
+  Username String
+  RateId String
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+
+  User m_User @relation(fields: [Username], references: [Username])
+  Rate m_Rate @relation(fields: [RateId], references: [RateId])
+}
+
+model d_DayOff {
+  DayOffId String @id
+  Username String
+  DayOffDate DateTime
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+
+  EmployeeDayOff m_User @relation(fields: [Username], references: [Username])
+}
+
+model d_Payment {
+  PaymentId String @id
+  Username String
+  SalaryId String
+  PaymentDate DateTime
+  PaymentMonth Int
+  PaymentYear Int
+  Approved Boolean
+  Note String?
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+
+  EmployeePayment m_User @relation(fields: [Username], references: [Username])
+  EmployeeSalary d_Salary @relation(fields: [SalaryId], references: [SalaryId])
+}
