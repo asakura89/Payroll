@@ -1,0 +1,43 @@
+@model Payroll.Models.d_Payment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>d_Payment</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PaymentId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PaymentId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PaymentMonth)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PaymentMonth)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PaymentYear)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PaymentYear)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.m_User.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.m_User.Password)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,35 @@
+@using GridMvc.Html
+@using Payroll.Helpers
+@model IEnumerable<Payroll.Models.RateForView>
+
+@{
+    ViewBag.Title = "Rate List";
+    Layout = ViewHelper.DefaultLayout;
+    ViewBag.IsRateMenuActive = "active";
+}
+
+<a href='@Url.Action("Create", "Rate")'
+   class="btn btn-primary" role="button">
+    <span class="glyphicon glyphicon-plus-sign"></span>
+    Create New
+</a>
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add()
+        .RenderValueAs(model =>
+            @<a href='@Url.Action("Edit", "Rate", new {id = model.Rate.RateId})' class="btn btn-primary" role="button">
+                 <span class="glyphicon glyphicon-file"></span>
+             </a>)
+        .Sanitized(false).Encoded(false).Titled("Edit").SetWidth(20);
+    columns.Add()
+        .RenderValueAs(model =>
+            @<a href='@Url.Action("Delete", "Rate", new {id = model.Rate.RateId})' class="btn btn-primary" role="button">
+                 <span class="glyphicon glyphicon-remove"></span>
+             </a>)
+        .Sanitized(false).Encoded(false).Titled("Delete").SetWidth(20);
+    columns.Add(model => model.Rate.RateId).Titled("Rate Id").Sortable(true).SetWidth(120);
+    columns.Add(model => model.Rate.RateName).Titled("Rate Name").Sortable(true).SetWidth(120);
+    columns.Add(model => model.Rate.RateValue).Titled("Rate Value").Sortable(true).SetWidth(60);
+    columns.Add(model => model.RateTypeDescList.First(type => type.Value == model.Rate.RateType).Text).Titled("Rate Type").Sortable(true).SetWidth(60);
+}).WithPaging(50)

@@ -1,0 +1,36 @@
+@model Payroll.Models.d_DayOff
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>d_DayOff</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DayOffId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DayOffId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.m_User.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.m_User.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DayOffDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DayOffDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
